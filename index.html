@@ -74,7 +74,18 @@
       background: #9c7746;
     }
   </style>
-</head>
+<style>
+@media print {
+    .lux-card {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        padding: 15mm;
+        box-shadow: none;
+        border: none;
+    }
+}
+</style></head>
 <body class="p-6">
 <div class="max-w-3xl mx-auto lux-card" id="fiche">
 <h1 class="text-center text-3xl mb-8">Fiche de dégustation de cigare</h1>
@@ -420,7 +431,14 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
       const marginX = (pageWidth - displayWidth) / 2;
 
       pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
-      pdf.save("fiche_cigare.pdf");
+const date = new Date();
+const day = String(date.getDate()).padStart(2, '0');
+const month = String(date.getMonth() + 1).padStart(2, '0');
+const year = date.getFullYear();
+const formattedDate = `${day}-${month}-${year}`;
+
+pdf.save(`Fiche de dégustation ${formattedDate}.pdf`);
+
     }
   </script>
 <script>
