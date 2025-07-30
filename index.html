@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-<head><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta charset="utf-8"/>
-<title>Fiche de dégustation</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>
+<head>
+  <meta charset="UTF-8">
+  <title>Fiche de dégustation</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
     body {
       font-family: 'Inter', sans-serif;
       background: #f8f8f8;
@@ -74,53 +73,45 @@
       background: #9c7746;
     }
   </style>
-<style>
-@media print {
-    .lux-card {
-        width: 210mm;
-        min-height: 297mm;
-        margin: 0;
-        padding: 15mm;
-        box-shadow: none;
-        border: none;
-    }
-}
-</style></head>
+</head>
 <body class="p-6">
-<div class="max-w-3xl mx-auto lux-card" id="fiche">
-<h1 class="text-center text-3xl mb-8">Fiche de dégustation de cigare</h1>
-<!-- Informations générales -->
-<div class="grid grid-cols-2 gap-4 mb-6">
-<div>
-<label>Nom du cigare</label>
-<input type="text"/>
-</div>
-<div>
-<label>Date</label>
-<input type="date"/>
-</div>
-<div>
-<label>Pays / Terroir</label>
-<input type="text"/>
-</div>
-<div>
-<label>Lieu</label>
-<input type="text"/>
-</div>
-<div>
-<label>Module</label>
-<input type="text"/>
-</div>
-<div>
-<label>Prix (€)</label>
-<input step="0.01" type="number"/>
-</div>
-</div>
-<!-- Couleurs de cape -->
-<div class="mb-6">
-<h2 class="text-xl mb-2">Couleur de la cape</h2>
-<div class="checkbox-group cape-group">
-<label>Double Claro <input name="cape" type="radio"/><img alt="Double Claro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+
+  <div class="max-w-3xl mx-auto lux-card" id="fiche">
+    <h1 class="text-center text-3xl mb-8">Fiche de dégustation de cigare</h1>
+
+    <!-- Informations générales -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div>
+        <label>Nom du cigare</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Date</label>
+        <input type="date">
+      </div>
+      <div>
+        <label>Pays / Terroir</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Lieu</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Module</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Prix (€)</label>
+        <input type="number" step="0.01">
+      </div>
+    </div>
+
+    <!-- Couleurs de cape -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Couleur de la cape</h2>
+      <div class="checkbox-group cape-group">
+        <label>Double Claro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgASgCIAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -155,8 +146,8 @@ Oy0N4e8zs9G0/ToSiXduLbYAWlCmUEj/YyD+tTeKtQsbaMQaRb6TdySRqxuJIpEt4wc5yOpPTisvT3aW
 wcjHOf1rtvCTGbTIFcl18leDyK8xXUrk3Vx/pE/yyOB854qpxUIKSQo1Jz6nff8ACXW8KR29ysQCkBi+EjkHfaaw9Fvz4y8Xf2dbyPMFYPLBakiK2QMBliepIzjmvPtfme4ubRZHZ1VGwGOQK6Hw7cSaRZ3D2jvavI8AdoiULD5uuOtc/t
 XKVmU6SULo9j1rxFpWjwraW6xyLar8sKNt2/7Wcc1yep+LfNSWa0sYreJQMqrYFzt6jjnPvmtnV4lfT9JcqpdrfBYjk1y+hgS6hp4YBgCCAecGvQnJ8uhzRgrG7b/DifxRcNNcXczRyFXA3bcAnnA57V0vhrwTpHg7XLqL7LEBbRBY3m5a
 Yk5Jwe1XvCzEaxByeuP/AB2uS+IFzJN4y1MvI7kLgFmJwK0aSsyLtlvxJbRa9azeVBZTm1cqxjjRDkemKqaF4tJQwNeRwyqCEEy4w3YVBbIIvDK7QF3MxbAxn61zGsqBFI+Bu8xTnvn1rJy93mQRjfQ7i61K61DTftDWrwOjGPyjJvBYe/
-pXHaLrF+fFsjXaw3AEjqYxHvZCv6GtNrmQ3FmhkcoYWJXccE+tanhS3jVowEQDcDwKOXmaBOyMzTfE8mgS394tqL2/uX4RGKiLPTc2florrNWtYo9JfbGi+Y53YUDd9fWitlGxDd+h/9k="/></label>
-<label>Claro <input name="cape" type="radio"/><img alt="Claro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+pXHaLrF+fFsjXaw3AEjqYxHvZCv6GtNrmQ3FmhkcoYWJXccE+tanhS3jVowEQDcDwKOXmaBOyMzTfE8mgS394tqL2/uX4RGKiLPTc2florrNWtYo9JfbGi+Y53YUDd9fWitlGxDd+h/9k=" alt="Double Claro"></label>
+        <label>Claro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAOwCCAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -190,8 +181,9 @@ cjW8U0kpdEPDfK3WuXF2gvc0v5mtKbtqey6X46uPBOsx6nq0q6lqS7Y0JcNFbLnO4KfvE9B6Eg9q6C3/
 YNV1yxaDzbLSra4TO3zA8r47HBGK5i9+L1rod2I9lvI+1nn8t2kwOBk9F/LNeI6czXHi638xnkLgbizEt971PNer6doVmqQD7NEVWMnDLuBOe4PX8a0qJzd2OlCnF8sUd1qXxl0XUvCFvBFp8+s3LR72At/kRv4dh/n7Zqnpnjfxd4j3RR
 QxaXaSpjy4pFjMvyk4PGR1rd+G8CX2nBpETi4CYVQqkY6EDANWvi650qwtzb4jJUR9Afl545rSkre8YzpRhNrc5zT/Cd7d6kVsy19bQSyCWRUCRoF3Kx5+9g8bq7z4Y/DoaZcw6nd3EFmZlKzk/NIWJwiAt025HTsTUXw/by/C1rEuFjmR
 A6qMB+e9dPLaRQ6VIwijJj3bdyhgOD61jWquUlFq6WphJN3VzoNd03S49In8vzLh5I/KaaHJZGHOdw615/q+qCxsU02Z2RoI99pcxuy+WCfuMvfJroNK1ObTfCVzcQMEkCMw+UFQQp/hIx+lYFnGtxotnK43SXcW+Ru5Oc8f3foMVy1akH
-V5FutfkTRfLL2e5zF3p1xeXUkxm1hjK5ckW3Byc0VqxeDdOnjV3gdncBmPnPyT+NFR7PzO677H//2Q=="/></label>
-<label>Colorado Claro <input name="cape" type="radio"/><img alt="Colorado Claro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+V5FutfkTRfLL2e5zF3p1xeXUkxm1hjK5ckW3Byc0VqxeDdOnjV3gdncBmPnPyT+NFR7PzO677H//2Q==" alt="Claro"></label>
+
+        <label>Colorado Claro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgATQCDAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -231,8 +223,9 @@ x610+o6i+qW1tbzBGSSMKGC4ZQDnGfrSlBxYl72pzvgfUbaK2NtvjbaCLaMYYkseSxPcflW/FLFb3kCz
 VLabT7fTIbYySBpLuZAQu08nI6muv03xJ4Vu7Oyt4HsFnLM8k0qKJLkA53ZxlFPUAEHHWvH7Pxhd66scQ2W8LQqwjQfKG29fWiz0xFk8yTbOXQsBIu4Kf8+tcEYa3kbzm5bHuh+K3h6C22DbqDhvljt8nA7gt1U5965248WxS6vd30lvLY
 sD5gTYZ/kxx1JAPvkfSvFJPHmoafp88di6WEW4hhCuCfm9en6VvaXb3HivRma8vJ5IyhOwnjOepxWs6StdaGcJxT7ntvgzxhZ6ybuZr1IIVi3yM8ixg+wHQn865a48c+HfDep3KiTUdZmZggzK+0qTnYcDAAwelY3g/wLplzrKQzxSzvct
 ucvJ+74H9wD+ufeu/sfh7pulaO9zBBHDMVDbkGNpGQcc98981jGnBO0tTaam9b6GDrXjDU9fUXcVqun2gJAjgYxRoSASDjDP8AeHSqum6Bc+LWjEAuWYQrPJsX5nGeFB6Dce+M1qeCbtfEviFpLlGkSxQJFGzZUZIDHp1O0c9a9J0a38y9
-a5jIgMgIVY1AEYHAA9hRXxCiuRIiFLmdx1p8J/tFpE8lrGJHRSwku5C4OOQcHGfpRVK61q5srh4kvNRAQ9pxgnufu9zk0VyJLzK5T//Z"/></label>
-<label>Colorado <input name="cape" type="radio"/><img alt="Colorado" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+a5jIgMgIVY1AEYHAA9hRXxCiuRIiFLmdx1p8J/tFpE8lrGJHRSwku5C4OOQcHGfpRVK61q5srh4kvNRAQ9pxgnufu9zk0VyJLzK5T//Z" alt="Colorado Claro"></label>
+
+        <label>Colorado <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAUACEAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -264,8 +257,9 @@ iPerN54meHmSaTPTagwOaiVWre0DWKhrzFC+8N2+iXkMjpd3JEhDB3A+U8fdrfu9MBskkeOGCEgBccMM
 ALH3qbw14Yg8S37m7tyY4mwrDCBcc55qxDpmm6RfMJGE0rSGUlmUhcdhUVKlP4eqI5J302M2bSJvDbhYYGkZj/AK9VJjAPbPT8a2pPEEmiGFxZqpR932hbgb8Edh61W8UeP4LOQxRTyfZN+GRzxnHTAPArmPEHiaw+2Aw3Bcvg+X8x2n25
 NKnSnVs5xNG1FWbR6ZqXxMiutDSZDdKXOJMjcR2zmvPX1+aSc3DLIsYclQ3y7vce9WR4lms9BYQ2107yjkOvDcdRXLWENz4k16MTtMqDPyFiFWrwmDhBSurIVapaUVF3NDxr4ivNVsRBZCUITwN5Zc+9T+GNKn0ewjkvJZriZeZMDOw9sV
 0unCw0iBbdkURxsDKxUkUR6pb6leuYFW1jmIYbuo296PrH7v2UI2S69SHRV+dvUoedHMkkxgClcABgMketZPjPVZbXxRYRW8RLSBTsLYKqT1/CpdY8VWZvzKcSgMBk8k8+lc74t0K78Xa2t/bSGF4YwobdjA+hrqwlBOalU0Vnv+BlWqNR
-tDdW2Ok1XxBcT3ZMUlmVAwd6ljn6gUVL4X8QWn9gWytZxxSxpsk+XO9geW/GisnLlfLybAry1cz/2Q=="/></label>
-<label>Colorado Maduro <input name="cape" type="radio"/><img alt="Colorado Maduro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+tDdW2Ok1XxBcT3ZMUlmVAwd6ljn6gUVL4X8QWn9gWytZxxSxpsk+XO9geW/GisnLlfLybAry1cz/2Q==" alt="Colorado"></label>
+
+        <label>Colorado Maduro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgANwCDAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -288,8 +282,9 @@ K5+f5l8v8A1i0qmGox0SCGJqvVszdD8U/b/Dj/AGfTY0+0o22RJG+9/tVsfC/4kWOjXltYa5DbTfaf3X
 4jI0P3EjWvIvA8d1bapc6TazROltNsWT/noq13keuN4i1C50u6h+x6lZ/wASSfJOu6sfxZ8P5tGk+326eTs+ddlc9pJXXQ6fdky9/ajW37t725iZeCn92in2niF763SZ7ixZpBkmRPmP1oqvrn938A+qeZ57Jf20dxuitwkshwzf7NW7ea
 DWbf7JKDJn72RRRX0U3ZHjcqvct6Log8PXVwDNIIIU+WM/NuzWla6vFeaa1nLH+8X7slFFZRppvUr2kktDH074jXViJdLuZpRcW/EUg5wtZ/i6GJvDd7eiIMphaJ1Pb6UUVEIK1wqyb3LvhrSr7xBoFjdI6s1lCsDyFtrGPtXRTfEfTb2A
 2QF1a3UX30++r/jRRXJSk22bVF+7Rak8UT6fp+JIwY0/iU81lazbx+I4UkW1WON+7PlqKK9H2cVK5xqbcSODV7TTvC0n2eHdLG/lRyHht1UPGFpqx8t5Uggx8+/zSxb8qKKx9knFtmrqSVrGVenUIdAlF6qXBl3Jnf8Ad+lZnhTxBf6T4E
-t7yCebFjM0Uibh82aKKxgrrXsTUdrW7ncWFxd6k1heRmQSv8/mGT5q6jUPGV0I44l+bZ87Bvu0UVVanF2uaYerK+5jy+GdC1KQzzWjCWU7mCcLn2ooornUEdvPLuf/2Q=="/></label>
-<label>Maduro <input name="cape" type="radio"/><img alt="Maduro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+t7yCebFjM0Uibh82aKKxgrrXsTUdrW7ncWFxd6k1heRmQSv8/mGT5q6jUPGV0I44l+bZ87Bvu0UVVanF2uaYerK+5jy+GdC1KQzzWjCWU7mCcLn2ooornUEdvPLuf/2Q==" alt="Colorado Maduro"></label>
+
+        <label>Maduro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAQgCFAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -326,8 +321,9 @@ mZ0fiNdO1W1NtaabKzygAu7ECNfT8q5i90DUb7T5I2km2wOot4YASDjkknHbGa9WttLuLu2i1Gez06Oy
 60C11ywuLvxHFPqN5LJhXmlkwFH90AcCiuicnfRv8DOMrq7PQPgZCm/R22ru+2Yzjmu30SZ7nXfiQ8jNI4kA3McnAHAoorzsd/FfyOzFfZOT+KMzxa5obK7KxseSDgn5DXTXTtF8H3uFJW4WAASg4cZUg89aKKyj8MfV/mc8dmeJ+IVD6I
 khAMhgl+Y/e+6e9UdUt47LwJA8KJC7xKWZFCk8dyKKK+iw/wDBZ5q/is3vDrG4isI5CXjYxEq3IJ2ntXu/gJjbfDi5MZMZW4bG3jHFFFeFmH8J+v8Akd1LZnk/i+5knt7NHkd0eSQsrMSGO7qRVbwFCk/je5kdVdxFKQzDJyAAOfaiioXw
 L0Lp/EVdFUah8SlFwBOEmJXzPm2/I3TNZVq5m8eujkuglkcKTkA4PP1oorfD9PQt/CzI+N9xIllaxK7iJkO5ATtPI7VufCiFJPCtyWVWMezaSM7eR09KKK6cR/AXqclT416Gz+0Pfz2WkaXbwzSwwSR5aNHKox29wODVzwtbxxfCOPaiLu
-Vc4AGflNFFTH/d16l/bZzFuSJWGeAi/wBaKKK64fCij//Z"/></label>
-<label>Oscuro <input name="cape" type="radio"/><img alt="Oscuro" src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
+Vc4AGflNFFTH/d16l/bZzFuSJWGeAi/wBaKKK64fCij//Z" alt="Maduro"></label>
+
+        <label>Oscuro <input type="radio" name="cape"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDA
 cJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAMACDAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//E
 ALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqa
 qys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1Lw
@@ -347,128 +343,98 @@ LIptJ5yqbG8i3LAjg9eg7fnXdOEuiOJcpDqtxrZcLabJZg2NkUvzD6kU77drV0Ft7+3mQjhlR9zA/jUM
 jJX8mrnL/x5o0IdzcjzGPERBGT6g9BSQfEO3jmkENrLc78FIIU8wKfUkd/8ah03e7RXtOx0supCclrcyK7dT5GI/pjrVnS21rVXARGVU4/dWQjz/wI1ijW9fCRXMOjpbKeVaR1TH4dauWGoeJddd3laIEggN5pAH4CoattY0TRrSeG9bt4
 1mnklMnIVGYM/wCHQVZ0+2NrCftIvMkbm4Vfz/8A11zs2palpMMjz6k6vFwfKUZH4mse51vU/EKhIH225ODcTnaD9D3qPZylu9B8yiehw61DpwIVXYdQDKEC++c0tl4zvZEL2d9exQBud5WWPPsWBriLK1XTpoTNfC7ZuGJQ7APr0rQf4l
 Wnh3Zbx3vnMH/1Mahsf/XojS6rUpVG2djb+KfEbzrK9xp18IG5Pk849DtxWvpviw3iyvc2unbiMkJcFf6GuLtfEev+Kkka1sRYRSkZnuUO9h6BR+f4VseHdJsbDi/868n6lzJ5SA/7o/rWc6ehpGbT30OjhcTR749MkhZfnRxMjgkc9Dtr
-GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUbY4bSE5SLI9RwazVKyvY0c77MnvPFejzXLsbfUoyxyVbTJsr7cCii31YPCpl1JhKRlwzYOe/FFHufysV59z//2Q=="/></label>
-</div>
-</div>
-<!-- Avant d'allumer -->
-<div class="mb-6">
-<h2 class="text-xl mb-2">Avant d'allumer</h2>
-<label>Arômes à cru</label>
-<div class="checkbox-group">
-<label><input type="checkbox"/> Cuir</label>
-<label><input type="checkbox"/> Bois</label>
-<label><input type="checkbox"/> Herbe</label>
-<label><input type="checkbox"/> Foin</label>
-<label><input type="checkbox"/> Cacao</label>
-<label><input type="checkbox"/> Café</label>
-</div>
-<label>Tirage à cru</label>
-<div class="checkbox-group">
-<label><input name="tirage_cru" type="radio"/> Léger</label>
-<label><input name="tirage_cru" type="radio"/> Moyen</label>
-<label><input name="tirage_cru" type="radio"/> Fort</label>
-</div>
-</div>
-<!-- Une fois allumé -->
-<div class="mb-6">
-<h2 class="text-xl mb-2">Une fois le cigare allumé</h2>
-<label>Tirage</label>
-<div class="checkbox-group">
-<label><input name="tirage" type="radio"/> Léger</label>
-<label><input name="tirage" type="radio"/> Moyen</label>
-<label><input name="tirage" type="radio"/> Fort</label>
-</div>
-<label>Combustion</label>
-<div class="checkbox-group">
-<label><input name="combustion" type="radio"/> Léger</label>
-<label><input name="combustion" type="radio"/> Moyen</label>
-<label><input name="combustion" type="radio"/> Fort</label>
-</div>
-<label>Densité fumée</label>
-<div class="checkbox-group">
-<label><input name="fume" type="radio"/> Léger</label>
-<label><input name="fume" type="radio"/> Moyen</label>
-<label><input name="fume" type="radio"/> Fort</label>
-</div>
-<label>Puissance</label>
-<div class="checkbox-group">
-<label><input name="puissance" type="radio"/> Léger</label>
-<label><input name="puissance" type="radio"/> Moyen</label>
-<label><input name="puissance" type="radio"/> Fort</label>
-</div>
-</div>
-<!-- Appréciation -->
-<div class="mb-6">
-<hr class="mb-4 border-gray-300"/><label class="text-center font-bold text-black-400">Appréciation globale</label>
-<div class="checkbox-group justify-center">
-<label class="text-green-600"><input name="appreciation" type="radio"/> Apprécié</label>
-<label class="text-red-600"><input name="appreciation" type="radio"/> Pas apprécié</label>
-</div>
-<label>Notes / Remarques</label>
-<textarea rows="3"></textarea>
-</div> </div>
-<div class="text-center mt-6">
-<button onclick="exportPDF()">Générer la fiche</button>
-</div>
-<script>
-async function exportPDF() {
-    const { jsPDF } = window.jspdf;
-    const fiche = document.getElementById('fiche');
+GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUbY4bSE5SLI9RwazVKyvY0c77MnvPFejzXLsbfUoyxyVbTJsr7cCii31YPCpl1JhKRlwzYOe/FFHufysV59z//2Q==" alt="Oscuro"></label>
+      </div>
+    </div>
 
-    // Capture du contenu HTML en tant qu'image
-    const canvas = await html2canvas(fiche, {
-        scale: 1, // Réduire l'échelle pour s'assurer que tout rentre sur une seule page
-        useCORS: true,
-        allowTaint: true
-    });
+    <!-- Avant d'allumer -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Avant d'allumer</h2>
+      <label>Arômes à cru</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Cuir</label>
+        <label><input type="checkbox"> Bois</label>
+        <label><input type="checkbox"> Herbe</label>
+        <label><input type="checkbox"> Foin</label>
+        <label><input type="checkbox"> Cacao</label>
+        <label><input type="checkbox"> Café</label>
+      </div>
+      <label>Tirage à cru</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="tirage_cru"> Léger</label>
+        <label><input type="radio" name="tirage_cru"> Moyen</label>
+        <label><input type="radio" name="tirage_cru"> Fort</label>
+      </div>
+    </div>
 
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
+    <!-- Une fois allumé -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Une fois le cigare allumé</h2>
+      <label>Tirage</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="tirage"> Léger</label>
+        <label><input type="radio" name="tirage"> Moyen</label>
+        <label><input type="radio" name="tirage"> Fort</label>
+      </div>
+      <label>Combustion</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="combustion"> Léger</label>
+        <label><input type="radio" name="combustion"> Moyen</label>
+        <label><input type="radio" name="combustion"> Fort</label>
+      </div>
+      <label>Densité fumée</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="fume"> Léger</label>
+        <label><input type="radio" name="fume"> Moyen</label>
+        <label><input type="radio" name="fume"> Fort</label>
+      </div>
+      <label>Puissance</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="puissance"> Léger</label>
+        <label><input type="radio" name="puissance"> Moyen</label>
+        <label><input type="radio" name="puissance"> Fort</label>
+      </div>
+    </div>
 
-    // Calcul des dimensions pour s'adapter à la page PDF
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    <!-- Appréciation -->
+    <div class="mb-6">
+      <hr class="mb-4 border-gray-300"><label class="text-center font-bold text-black-400">Appréciation globale</label>
+      <div class="checkbox-group justify-center"> 
+    	<label class="text-green-600"><input type="radio" name="appreciation"> Apprécié</label>
+   	<label class="text-red-600"><input type="radio" name="appreciation"> Pas apprécié</label>
+      </div>
+      <label>Notes / Remarques</label>
+      <textarea rows="3"></textarea>
+    </div>  </div>
 
-    // Calcul de l'échelle pour tenir sur une seule page
-    const imgAspectRatio = canvas.width / canvas.height;
-    let imgWidth = pageWidth - 20; // Marge de 10 mm de chaque côté
-    let imgHeight = imgWidth / imgAspectRatio;
+  <div class="text-center mt-6">
+    <button onclick="exportPDF()">Générer la fiche</button>
+  </div>
 
-    // Vérifier si la hauteur est trop grande pour la page
-    if (imgHeight > pageHeight) {
-        imgHeight = pageHeight - 20; // Marge de 10 mm en haut et en bas
-        imgWidth = imgHeight * imgAspectRatio;
+  <script>
+    async function exportPDF() {
+      const { jsPDF } = window.jspdf;
+      const fiche = document.getElementById('fiche');
+      const canvas = await html2canvas(fiche, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF('p', 'pt', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      // Calcul de l'échelle pour tenir sur une seule page
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+
+      const displayWidth = imgWidth * ratio;
+      const displayHeight = imgHeight * ratio;
+      const marginX = (pageWidth - displayWidth) / 2;
+
+      pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
+      pdf.save("fiche_cigare.pdf");
     }
-
-    // Ajout de l'image au PDF
-    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-
-    // Génération du nom du fichier avec la date actuelle
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    const formattedDate = `${day}-${month}-${year}`;
-
-    // Sauvegarde du PDF
-    pdf.save(`Fiche de dégustation ${formattedDate}.pdf`);
-}
   </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const exportButton = document.getElementById('exportButton');
-    if (exportButton) {
-        exportButton.addEventListener('click', function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'pt', 'a4');
-            
-            html2canvas(document.querySelector('.lux-card')).then(canvas => {
-                doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 15, 560, 0);
-                const date = new Date().toISOString().split('T')[0];
-                doc.save(`Fiche de dégustation ${date}.pdf`);
-            });
-        });
-    }
-});
-</script></body>
+
+</body>
 </html>
