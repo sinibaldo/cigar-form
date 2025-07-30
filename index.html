@@ -1,720 +1,440 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche de Dégustation de Cigare</title>
-    <style>
-        @media print {
-            body { margin: 0; }
-            .no-print { display: none; }
-        }
-        
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.2;
-            color: #2c3e50;
-            max-width: 210mm;
-            margin: 0 auto;
-            padding: 10mm;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            box-sizing: border-box;
-            font-size: 11px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 12px;
-            padding: 8px;
-            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
-            color: white;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
-        }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 18px;
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        
-        .header .subtitle {
-            font-size: 10px;
-            margin-top: 3px;
-            opacity: 0.9;
-        }
-        
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        
-        .section {
-            background: white;
-            padding: 8px;
-            border-radius: 4px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            border-left: 2px solid #8b4513;
-        }
-        
-        .section h3 {
-            margin: 0 0 6px 0;
-            color: #8b4513;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 3px;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            margin-bottom: 6px;
-        }
-        
-        .field {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .field label {
-            font-size: 8px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            margin-bottom: 1px;
-        }
-        
-        .field input {
-            border: none;
-            border-bottom: 1px solid #ddd;
-            padding: 2px 0;
-            font-size: 9px;
-            background: transparent;
-        }
-        
-        .field input:focus {
-            outline: none;
-            border-bottom-color: #8b4513;
-        }
-        
-        .rating-scale {
-            display: flex;
-            align-items: center;
-            margin: 4px 0;
-            font-size: 8px;
-        }
-        
-        .rating-scale label {
-            font-size: 8px;
-            color: #666;
-            min-width: 60px;
-            flex-shrink: 0;
-        }
-        
-        .scale {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-            justify-content: space-between;
-            margin-left: 6px;
-        }
-        
-        .scale-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1px;
-        }
-        
-        .scale input[type="radio"] {
-            margin: 0;
-            width: 12px;
-            height: 12px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .scale input[type="radio"]:checked {
-            border-color: #8b4513;
-            background: #8b4513;
-            box-shadow: inset 0 0 0 2px white;
-        }
-        
-        .scale-number {
-            font-size: 7px;
-            color: #666;
-            font-weight: 500;
-        }
-        
-        .scale-label {
-            font-size: 7px;
-            color: #888;
-            white-space: nowrap;
-            font-style: italic;
-        }
-        
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 3px;
-            margin: 4px 0;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            font-size: 8px;
-        }
-        
-        .checkbox-item input {
-            margin-right: 3px;
-            transform: scale(0.7);
-        }
-        
-        .full-width {
-            grid-column: 1 / -1;
-        }
-        
-        .notes-section {
-            background: white;
-            padding: 8px;
-            border-radius: 4px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            border-left: 2px solid #8b4513;
-        }
-        
-        .notes-area {
-            width: 100%;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            padding: 4px;
-            font-size: 9px;
-            resize: none;
-            font-family: inherit;
-        }
-        
-        .appreciation {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 6px 0;
-            flex-wrap: wrap;
-        }
-        
-        .appreciation label {
-            display: flex;
-            align-items: center;
-            font-size: 9px;
-            cursor: pointer;
-        }
-        
-        .appreciation input {
-            margin-right: 3px;
-            transform: scale(0.8);
-        }
-        
-        .cigar-band {
-            width: 100%;
-            height: 20px;
-            border: 1px dashed #8b4513;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8px;
-            color: #8b4513;
-            background: #f8f9fa;
-        }
-        
-        .color-selector {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            margin-top: 4px;
-        }
-        
-        .color-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            padding: 3px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            transition: all 0.2s;
-            background: white;
-        }
-        
-        .color-option input[type="radio"] {
-            margin-bottom: 2px;
-        }
-        
-        .tobacco-leaf {
-            width: 18px;
-            height: 10px;
-            border-radius: 5px;
-            margin-bottom: 1px;
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-        
-        .color-name {
-            font-size: 7px;
-            text-align: center;
-            color: #666;
-            font-weight: 500;
-            line-height: 1;
-        }
-        
-        .pdf-button {
-            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
-            transition: all 0.2s;
-            margin: 20px auto;
-            display: block;
-            letter-spacing: 1px;
-        }
-        
-        .pdf-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
-        }
-        
-        .pdf-button:active {
-            transform: translateY(0);
-        }
-        
-        /* Optimisations iOS */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                -webkit-text-size-adjust: 100%;
-                -webkit-tap-highlight-color: transparent;
-            }
-            
-            input, textarea, button {
-                -webkit-appearance: none;
-                border-radius: 0;
-            }
-            
-            .scale input[type="radio"] {
-                -webkit-appearance: none;
-                width: 20px;
-                height: 20px;
-            }
-            
-            .pdf-button {
-                -webkit-appearance: none;
-                -webkit-touch-callout: none;
-                user-select: none;
-            }
-        }
-        
-        /* Responsive pour mobile */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .scale {
-                gap: 4px;
-            }
-            
-            .scale input[type="radio"] {
-                width: 16px;
-                height: 16px;
-            }
-            
-            .header h1 {
-                font-size: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Fiche de dégustation</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f8f8;
+    }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #b8925e;
+    }
+    .lux-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #eee;
+    }
+    label {
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    input[type="text"], input[type="date"], input[type="number"], textarea {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.5rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      transition: 0.3s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #b8925e;
+      box-shadow: 0 0 5px rgba(184,146,94,0.3);
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+    .cape-group img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #b8925e;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #9c7746;
+    }
+  </style>
 </head>
-<body>
-    <div class="header">
-        <h1>FICHE DE DÉGUSTATION</h1>
-        <div class="subtitle">Cigare Premium - Évaluation Sensorielle</div>
+<body class="p-6">
+
+  <div class="max-w-3xl mx-auto lux-card" id="fiche">
+    <h1 class="text-center text-3xl mb-8">Fiche de dégustation de cigare</h1>
+
+    <!-- Informations générales -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div>
+        <label>Nom du cigare</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Date</label>
+        <input type="date">
+      </div>
+      <div>
+        <label>Pays / Terroir</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Lieu</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Module</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Prix (€)</label>
+        <input type="number" step="0.01">
+      </div>
     </div>
-    
-    <div class="container">
-        <div class="section">
-            <h3>Informations Générales</h3>
-            <div class="info-grid">
-                <div class="field">
-                    <label>Nom du cigare</label>
-                    <input type="text">
-                </div>
-                <div class="field">
-                    <label>Date</label>
-                    <input type="text" placeholder="JJ/MM/AAAA">
-                </div>
-                <div class="field">
-                    <label>Pays/Terroir</label>
-                    <input type="text">
-                </div>
-                <div class="field">
-                    <label>Lieu de dégustation</label>
-                    <input type="text">
-                </div>
-                <div class="field">
-                    <label>Module (Vitole)</label>
-                    <input type="text">
-                </div>
-                <div class="field">
-                    <label>Prix</label>
-                    <input type="text">
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h3>Aspect Visuel</h3>
-            <div class="field">
-                <label>Couleur de la cape</label>
-                <div class="color-selector">
-                    <label class="color-option claro">
-                        <input type="radio" name="cape-color" value="claro">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Claro</span>
-                    </label>
-                    <label class="color-option colorado-claro">
-                        <input type="radio" name="cape-color" value="colorado-claro">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Colorado<br>Claro</span>
-                    </label>
-                    <label class="color-option colorado">
-                        <input type="radio" name="cape-color" value="colorado">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Colorado</span>
-                    </label>
-                    <label class="color-option colorado-maduro">
-                        <input type="radio" name="cape-color" value="colorado-maduro">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Colorado<br>Maduro</span>
-                    </label>
-                    <label class="color-option maduro">
-                        <input type="radio" name="cape-color" value="maduro">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Maduro</span>
-                    </label>
-                    <label class="color-option oscuro">
-                        <input type="radio" name="cape-color" value="oscuro">
-                        <div class="tobacco-leaf"></div>
-                        <span class="color-name">Oscuro</span>
-                    </label>
-                </div>
-            </div>
-            <div class="field" style="margin-top: 10px;">
-                <label>Bague du cigare</label>
-                <div class="cigar-band">Coller ou dessiner la bague ici</div>
-            </div>
-        </div>
+
+    <!-- Couleurs de cape -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Couleur de la cape</h2>
+      <div class="checkbox-group cape-group">
+        <label>Double Claro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Double Claro"></label>
+        <label>Claro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Claro"></label>
+
+        <label>Colorado Claro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Colorado Claro"></label>
+
+        <label>Colorado <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Colorado"></label>
+
+        <label>Colorado Maduro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Colorado Maduro"></label>
+
+        <label>Maduro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Maduro"></label>
+
+        <label>Oscuro <input type="radio" name="cape"><img src="data:image/png;base64,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" alt="Oscuro"></label>
+      </div>
     </div>
-    
-    <div class="container">
-        <div class="section">
-            <h3>Avant Allumage</h3>
-            <div class="checkbox-group">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="cuir"> <label for="cuir">Cuir</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="bois"> <label for="bois">Bois</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="herbe"> <label for="herbe">Herbe</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="foin"> <label for="foin">Foin</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="cacao"> <label for="cacao">Cacao</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="cafe"> <label for="cafe">Café</label>
-                </div>
-            </div>
-            <div class="field">
-                <label>Autres arômes</label>
-                <input type="text" style="margin-top: 5px;">
-            </div>
-            <div class="rating-scale">
-                <label>Tirage à cru</label>
-                <div class="scale">
-                    <span class="scale-label">Difficile</span>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage-cru" value="1">
-                        <span class="scale-number">1</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage-cru" value="2">
-                        <span class="scale-number">2</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage-cru" value="3">
-                        <span class="scale-number">3</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage-cru" value="4">
-                        <span class="scale-number">4</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage-cru" value="5">
-                        <span class="scale-number">5</span>
-                    </div>
-                    <span class="scale-label">Aisé</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h3>Cigare Allumé</h3>
-            <div class="rating-scale">
-                <label>Tirage</label>
-                <div class="scale">
-                    <span class="scale-label">Difficile</span>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage" value="1">
-                        <span class="scale-number">1</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage" value="2">
-                        <span class="scale-number">2</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage" value="3">
-                        <span class="scale-number">3</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage" value="4">
-                        <span class="scale-number">4</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="tirage" value="5">
-                        <span class="scale-number">5</span>
-                    </div>
-                    <span class="scale-label">Aisé</span>
-                </div>
-            </div>
-            <div class="rating-scale">
-                <label>Combustion</label>
-                <div class="scale">
-                    <span class="scale-label">Irrégulière</span>
-                    <div class="scale-item">
-                        <input type="radio" name="combustion" value="1">
-                        <span class="scale-number">1</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="combustion" value="2">
-                        <span class="scale-number">2</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="combustion" value="3">
-                        <span class="scale-number">3</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="combustion" value="4">
-                        <span class="scale-number">4</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="combustion" value="5">
-                        <span class="scale-number">5</span>
-                    </div>
-                    <span class="scale-label">Parfaite</span>
-                </div>
-            </div>
-            <div class="rating-scale">
-                <label>Densité fumée</label>
-                <div class="scale">
-                    <span class="scale-label">Légère</span>
-                    <div class="scale-item">
-                        <input type="radio" name="densite" value="1">
-                        <span class="scale-number">1</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="densite" value="2">
-                        <span class="scale-number">2</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="densite" value="3">
-                        <span class="scale-number">3</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="densite" value="4">
-                        <span class="scale-number">4</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="densite" value="5">
-                        <span class="scale-number">5</span>
-                    </div>
-                    <span class="scale-label">Dense</span>
-                </div>
-            </div>
-            <div class="rating-scale">
-                <label>Puissance</label>
-                <div class="scale">
-                    <span class="scale-label">Douce</span>
-                    <div class="scale-item">
-                        <input type="radio" name="puissance" value="1">
-                        <span class="scale-number">1</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="puissance" value="2">
-                        <span class="scale-number">2</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="puissance" value="3">
-                        <span class="scale-number">3</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="puissance" value="4">
-                        <span class="scale-number">4</span>
-                    </div>
-                    <div class="scale-item">
-                        <input type="radio" name="puissance" value="5">
-                        <span class="scale-number">5</span>
-                    </div>
-                    <span class="scale-label">Corsée</span>
-                </div>
-            </div>
-            <div class="field">
-                <label>Arômes principaux</label>
-                <input type="text" style="margin-top: 5px;">
-            </div>
-        </div>
+
+    <!-- Avant d'allumer -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Avant d'allumer</h2>
+      <label>Arômes à cru</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> Cuir</label>
+        <label><input type="checkbox"> Bois</label>
+        <label><input type="checkbox"> Herbe</label>
+        <label><input type="checkbox"> Foin</label>
+        <label><input type="checkbox"> Cacao</label>
+        <label><input type="checkbox"> Café</label>
+      </div>
+      <label>Tirage à cru</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="tirage_cru"> Léger</label>
+        <label><input type="radio" name="tirage_cru"> Moyen</label>
+        <label><input type="radio" name="tirage_cru"> Fort</label>
+      </div>
     </div>
-    
-    <div class="notes-section full-width">
-        <h3>Notes & Impressions</h3>
-        <textarea class="notes-area" placeholder="Décrivez vos impressions générales, l'évolution des arômes, la complexité, l'équilibre..."></textarea>
-        
-        <div class="appreciation">
-            <strong>Appréciation globale:</strong>
-            <label>
-                <input type="radio" name="appreciation" value="excellent"> Excellent
-            </label>
-            <label>
-                <input type="radio" name="appreciation" value="tres-bon"> Très bon
-            </label>
-            <label>
-                <input type="radio" name="appreciation" value="bon"> Bon
-            </label>
-            <label>
-                <input type="radio" name="appreciation" value="moyen"> Moyen
-            </label>
-            <label>
-                <input type="radio" name="appreciation" value="decevan"> Décevant
-            </label>
-        </div>
+
+    <!-- Une fois allumé -->
+    <div class="mb-6">
+      <h2 class="text-xl mb-2">Une fois le cigare allumé</h2>
+      <label>Tirage</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="tirage"> Léger</label>
+        <label><input type="radio" name="tirage"> Moyen</label>
+        <label><input type="radio" name="tirage"> Fort</label>
+      </div>
+      <label>Combustion</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="combustion"> Léger</label>
+        <label><input type="radio" name="combustion"> Moyen</label>
+        <label><input type="radio" name="combustion"> Fort</label>
+      </div>
+      <label>Densité fumée</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="fume"> Léger</label>
+        <label><input type="radio" name="fume"> Moyen</label>
+        <label><input type="radio" name="fume"> Fort</label>
+      </div>
+      <label>Puissance</label>
+      <div class="checkbox-group">
+        <label><input type="radio" name="puissance"> Léger</label>
+        <label><input type="radio" name="puissance"> Moyen</label>
+        <label><input type="radio" name="puissance"> Fort</label>
+      </div>
     </div>
-    
-    <button class="pdf-button" onclick="generatePDF()">📄 GÉNÉRER PDF</button>
-    
-    <div class="footer">
-        Fiche de dégustation - Art de vivre et plaisirs du cigare
-    </div>
-    
-    <script>
-        function generatePDF() {
-            // Configuration pour l'impression optimisée
-            const originalTitle = document.title;
-            document.title = 'Fiche_Degustation_Cigare_' + new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
-            
-            // Masquer le bouton pour l'impression
-            const button = document.querySelector('.pdf-button');
-            const originalDisplay = button.style.display;
-            button.style.display = 'none';
-            
-            // Optimiser le style pour l'impression
-            const printStyle = document.createElement('style');
-            printStyle.innerHTML = `
-                @page {
-                    size: A4;
-                    margin: 10mm;
-                }
-                @media print {
-                    body {
-                        font-size: 10px !important;
-                        line-height: 1.1 !important;
-                        transform: scale(0.95);
-                        transform-origin: top left;
-                        background: white !important;
-                    }
-                    .container {
-                        break-inside: avoid;
-                        page-break-inside: avoid;
-                    }
-                    .section {
-                        break-inside: avoid;
-                        page-break-inside: avoid;
-                    }
-                    .notes-section {
-                        break-inside: avoid;
-                        page-break-inside: avoid;
-                    }
-                }
-            `;
-            document.head.appendChild(printStyle);
-            
-            // Lancer l'impression
-            window.print();
-            
-            // Nettoyer après impression
-            setTimeout(() => {
-                document.title = originalTitle;
-                button.style.display = originalDisplay;
-                document.head.removeChild(printStyle);
-            }, 1000);
-        }
-        
-        // Amélioration de l'interactivité
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto-focus sur le premier champ
-            const firstInput = document.querySelector('input[type="text"]');
-            if (firstInput) firstInput.focus();
-            
-            // Effet visuel sur les sélections de couleur
-            const colorOptions = document.querySelectorAll('.color-option');
-            colorOptions.forEach(option => {
-                const radio = option.querySelector('input[type="radio"]');
-                radio.addEventListener('change', function() {
-                    colorOptions.forEach(opt => opt.style.borderColor = '#ddd');
-                    if (this.checked) {
-                        option.style.borderColor = '#8b4513';
-                        option.style.borderWidth = '2px';
-                    }
-                });
-            });
-        });
-    </script>
+
+    <!-- Appréciation -->
+    <div class="mb-6">
+      <hr class="mb-4 border-gray-300"><label class="text-center font-bold text-black-400">Appréciation globale</label>
+      <div class="checkbox-group justify-center"> 
+    	<label class="text-green-600"><input type="radio" name="appreciation"> Apprécié</label>
+   	<label class="text-red-600"><input type="radio" name="appreciation"> Pas apprécié</label>
+      </div>
+      <label>Notes / Remarques</label>
+      <textarea rows="3"></textarea>
+    </div>  </div>
+
+  <div class="text-center mt-6">
+    <button onclick="exportPDF()">Exporter en PDF</button>
+  </div>
+
+  <script>
+    async function exportPDF() {
+      const { jsPDF } = window.jspdf;
+      const fiche = document.getElementById('fiche');
+      const canvas = await html2canvas(fiche, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF('p', 'pt', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      // Calcul de l'échelle pour tenir sur une seule page
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+
+      const displayWidth = imgWidth * ratio;
+      const displayHeight = imgHeight * ratio;
+      const marginX = (pageWidth - displayWidth) / 2;
+
+      pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
+      pdf.save("fiche_cigare.pdf");
+    }
+  </script>
+
 </body>
 </html>
