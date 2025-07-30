@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de Dégustation de Cigare</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a2c2c;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #4a2c2c;
+        }
+        input[type="text"], input[type="date"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #8b5a2b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #704020;
+        }
+        .note {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fiche de Dégustation de Cigare</h1>
+        <form id="cigarForm">
+            <label for="cigarName">Nom du cigare:</label>
+            <input type="text" id="cigarName" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" required>
+
+            <label for="country">Pays/Terroir:</label>
+            <input type="text" id="country" required>
+
+            <label for="location">Lieu:</label>
+            <input type="text" id="location" required>
+
+            <label for="module">Module:</label>
+            <input type="text" id="module" required>
+
+            <label for="price">Prix:</label>
+            <input type="text" id="price" required>
+
+            <label for="appreciation">Appréciation globale:</label>
+            <select id="appreciation" required>
+                <option value="Apprécié">Apprécié</option>
+                <option value="Pas apprécié">Pas apprécié</option>
+            </select>
+
+            <label for="notes">Notes / Remarques:</label>
+            <textarea id="notes" rows="4"></textarea>
+
+            <label for="tire">Tirage (1 à 5):</label>
+            <input type="range" id="tire" min="1" max="5" value="3">
+
+            <label for="combustion">Combustion (1 à 5):</label>
+            <input type="range" id="combustion" min="1" max="5" value="3">
+
+            <label for="density">Densité fumée (1 à 5):</label>
+            <input type="range" id="density" min="1" max="5" value="3">
+
+            <label for="power">Puissance (1 à 5):</label>
+            <input type="range" id="power" min="1" max="5" value="3">
+
+            <label for="aromas">Arômes:</label>
+            <textarea id="aromas" rows="4"></textarea>
+
+            <button type="button" onclick="generatePDF()">Générer PDF</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFont("Georgia");
+            doc.setFontSize(16);
+            doc.text("Fiche de Dégustation de Cigare", 10, 10);
+            doc.setFontSize(12);
+            doc.text(`Nom du cigare: ${document.getElementById('cigarName').value}`, 10, 20);
+            doc.text(`Date: ${document.getElementById('date').value}`, 10, 30);
+            doc.text(`Pays/Terroir: ${document.getElementById('country').value}`, 10, 40);
+            doc.text(`Lieu: ${document.getElementById('location').value}`, 10, 50);
+            doc.text(`Module: ${document.getElementById('module').value}`, 10, 60);
+            doc.text(`Prix: ${document.getElementById('price').value}`, 10, 70);
+            doc.text(`Appréciation globale: ${document.getElementById('appreciation').value}`, 10, 80);
+            doc.text(`Notes / Remarques: ${document.getElementById('notes').value}`, 10, 90);
+            doc.text(`Tirage: ${document.getElementById('tire').value}`, 10, 100);
+            doc.text(`Combustion: ${document.getElementById('combustion').value}`, 10, 110);
+            doc.text(`Densité fumée: ${document.getElementById('density').value}`, 10, 120);
+            doc.text(`Puissance: ${document.getElementById('power').value}`, 10, 130);
+            doc.text(`Arômes: ${document.getElementById('aromas').value}`, 10, 140);
+
+            const blob = doc.output('blob');
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'fiche_de_degustation.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
