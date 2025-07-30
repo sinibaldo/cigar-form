@@ -408,7 +408,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 <textarea rows="3"></textarea>
 </div> </div>
 <div class="text-center mt-6">
-<button onclick="exportPDF()">Exporter en PDF</button>
+<button onclick="exportPDF()">Générer la fiche</button>
 </div>
 <script>
 async function exportPDF() {
@@ -417,20 +417,31 @@ async function exportPDF() {
 
     // Capture du contenu HTML en tant qu'image
     const canvas = await html2canvas(fiche, {
-        scale: 2, // Augmente la résolution
-        useCORS: true, // Active le support CORS pour les images
-        allowTaint: true // Permet le contenu "tainted"
+        scale: 1, // Réduire l'échelle pour s'assurer que tout rentre sur une seule page
+        useCORS: true,
+        allowTaint: true
     });
 
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
 
     // Calcul des dimensions pour s'adapter à la page PDF
-    const imgWidth = 210; // Largeur A4 en mm
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Calcul de l'échelle pour tenir sur une seule page
+    const imgAspectRatio = canvas.width / canvas.height;
+    let imgWidth = pageWidth - 20; // Marge de 10 mm de chaque côté
+    let imgHeight = imgWidth / imgAspectRatio;
+
+    // Vérifier si la hauteur est trop grande pour la page
+    if (imgHeight > pageHeight) {
+        imgHeight = pageHeight - 20; // Marge de 10 mm en haut et en bas
+        imgWidth = imgHeight * imgAspectRatio;
+    }
 
     // Ajout de l'image au PDF
-    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
 
     // Génération du nom du fichier avec la date actuelle
     const date = new Date();
