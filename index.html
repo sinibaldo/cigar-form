@@ -411,36 +411,37 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 <button onclick="exportPDF()">Exporter en PDF</button>
 </div>
 <script>
-    async function exportPDF() {
-      const { jsPDF } = window.jspdf;
-      const fiche = document.getElementById('fiche');
-      const canvas = await html2canvas(fiche, { scale: 2 });
-      const imgData = canvas.toDataURL('image/png');
+async function exportPDF() {
+    const { jsPDF } = window.jspdf;
+    const fiche = document.getElementById('fiche');
 
-      const pdf = new jsPDF('p', 'pt', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
+    // Capture du contenu HTML en tant qu'image
+    const canvas = await html2canvas(fiche, {
+        scale: 2, // Augmente la résolution
+        useCORS: true, // Active le support CORS pour les images
+        allowTaint: true // Permet le contenu "tainted"
+    });
 
-      // Calcul de l'échelle pour tenir sur une seule page
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
 
-      const displayWidth = imgWidth * ratio;
-      const displayHeight = imgHeight * ratio;
-      const marginX = (pageWidth - displayWidth) / 2;
+    // Calcul des dimensions pour s'adapter à la page PDF
+    const imgWidth = 210; // Largeur A4 en mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
-      
-      const date = new Date();
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
+    // Ajout de l'image au PDF
+    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
-      pdf.save(`Fiche de dégustation ${formattedDate}.pdf`);
+    // Génération du nom du fichier avec la date actuelle
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
 
-    }
+    // Sauvegarde du PDF
+    pdf.save(`Fiche de dégustation ${formattedDate}.pdf`);
+}
   </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
