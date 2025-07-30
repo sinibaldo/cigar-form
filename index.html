@@ -5,149 +5,543 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche de Dégustation de Cigare</title>
     <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        
         body {
             font-family: 'Georgia', serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            line-height: 1.3;
+            color: #2c3e50;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 15mm;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
+        
+        .header {
             text-align: center;
-            color: #4a2c2c;
             margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
         }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #4a2c2c;
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        input[type="text"], input[type="date"], select, textarea {
-            width: 100%;
-            padding: 10px;
+        
+        .header .subtitle {
+            font-size: 12px;
             margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            opacity: 0.9;
         }
-        input[type="range"] {
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .section {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #8b4513;
+        }
+        
+        .section h3 {
+            margin: 0 0 10px 0;
+            color: #8b4513;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .field label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        
+        .field input {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 3px 0;
+            font-size: 11px;
+            background: transparent;
+        }
+        
+        .field input:focus {
+            outline: none;
+            border-bottom-color: #8b4513;
+        }
+        
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .rating-scale label {
+            font-size: 10px;
+            color: #666;
+            min-width: 70px;
+        }
+        
+        .scale {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .scale input[type="radio"] {
+            margin: 0 2px;
+            transform: scale(0.8);
+        }
+        
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100px;
+            font-size: 9px;
+            color: #888;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            font-size: 10px;
+        }
+        
+        .checkbox-item input {
+            margin-right: 5px;
+            transform: scale(0.8);
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .notes-section {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #8b4513;
+        }
+        
+        .notes-area {
             width: 100%;
-            margin-top: 5px;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 11px;
+            resize: none;
+            font-family: inherit;
         }
-        button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #8b5a2b;
+        
+        .appreciation {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .appreciation label {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        .appreciation input {
+            margin-right: 5px;
+        }
+        
+        .cigar-band {
+            width: 100%;
+            height: 30px;
+            border: 2px dashed #8b4513;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #8b4513;
+            background: #f8f9fa;
+        }
+        
+        .color-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .color-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .color-option:hover {
+            border-color: #8b4513;
+            box-shadow: 0 2px 5px rgba(139, 69, 19, 0.2);
+        }
+        
+        .color-option input[type="radio"] {
+            margin-bottom: 3px;
+        }
+        
+        .tobacco-leaf {
+            width: 25px;
+            height: 15px;
+            border-radius: 8px;
+            margin-bottom: 2px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        
+        .color-option.claro .tobacco-leaf { 
+            background: linear-gradient(45deg, #deb887, #f5deb3);
+        }
+        .color-option.colorado-claro .tobacco-leaf { 
+            background: linear-gradient(45deg, #cd853f, #daa520);
+        }
+        .color-option.colorado .tobacco-leaf { 
+            background: linear-gradient(45deg, #a0522d, #cd853f);
+        }
+        .color-option.colorado-maduro .tobacco-leaf { 
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+        }
+        .color-option.maduro .tobacco-leaf { 
+            background: linear-gradient(45deg, #654321, #8b4513);
+        }
+        .color-option.oscuro .tobacco-leaf { 
+            background: linear-gradient(45deg, #3c2415, #654321);
+        }
+        
+        .color-name {
+            font-size: 8px;
+            text-align: center;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .pdf-button {
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
             color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #704020;
-        }
-        .note {
-            color: #555;
+            padding: 12px 25px;
+            border-radius: 8px;
             font-size: 14px;
-            margin-top: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            transition: all 0.2s;
+            margin: 20px auto;
+            display: block;
+            letter-spacing: 1px;
+        }
+        
+        .pdf-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+        
+        .pdf-button:active {
+            transform: translateY(0);
+        }
+        
+        @media print {
+            .pdf-button { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Fiche de Dégustation de Cigare</h1>
-        <form id="cigarForm">
-            <label for="cigarName">Nom du cigare:</label>
-            <input type="text" id="cigarName" required>
-
-            <label for="date">Date:</label>
-            <input type="date" id="date" required>
-
-            <label for="country">Pays/Terroir:</label>
-            <input type="text" id="country" required>
-
-            <label for="location">Lieu:</label>
-            <input type="text" id="location" required>
-
-            <label for="module">Module:</label>
-            <input type="text" id="module" required>
-
-            <label for="price">Prix:</label>
-            <input type="text" id="price" required>
-
-            <label for="appreciation">Appréciation globale:</label>
-            <select id="appreciation" required>
-                <option value="Apprécié">Apprécié</option>
-                <option value="Pas apprécié">Pas apprécié</option>
-            </select>
-
-            <label for="notes">Notes / Remarques:</label>
-            <textarea id="notes" rows="4"></textarea>
-
-            <label for="tire">Tirage (1 à 5):</label>
-            <input type="range" id="tire" min="1" max="5" value="3">
-
-            <label for="combustion">Combustion (1 à 5):</label>
-            <input type="range" id="combustion" min="1" max="5" value="3">
-
-            <label for="density">Densité fumée (1 à 5):</label>
-            <input type="range" id="density" min="1" max="5" value="3">
-
-            <label for="power">Puissance (1 à 5):</label>
-            <input type="range" id="power" min="1" max="5" value="3">
-
-            <label for="aromas">Arômes:</label>
-            <textarea id="aromas" rows="4"></textarea>
-
-            <button type="button" onclick="generatePDF()">Générer PDF</button>
-        </form>
+    <div class="header">
+        <h1>FICHE DE DÉGUSTATION</h1>
+        <div class="subtitle">Cigare Premium - Évaluation Sensorielle</div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <div class="container">
+        <div class="section">
+            <h3>Informations Générales</h3>
+            <div class="info-grid">
+                <div class="field">
+                    <label>Nom du cigare</label>
+                    <input type="text">
+                </div>
+                <div class="field">
+                    <label>Date</label>
+                    <input type="text" placeholder="JJ/MM/AAAA">
+                </div>
+                <div class="field">
+                    <label>Pays/Terroir</label>
+                    <input type="text">
+                </div>
+                <div class="field">
+                    <label>Lieu de dégustation</label>
+                    <input type="text">
+                </div>
+                <div class="field">
+                    <label>Module (Vitole)</label>
+                    <input type="text">
+                </div>
+                <div class="field">
+                    <label>Prix</label>
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>Aspect Visuel</h3>
+            <div class="field">
+                <label>Couleur de la cape</label>
+                <div class="color-selector">
+                    <label class="color-option claro">
+                        <input type="radio" name="cape-color" value="claro">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Claro</span>
+                    </label>
+                    <label class="color-option colorado-claro">
+                        <input type="radio" name="cape-color" value="colorado-claro">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Colorado<br>Claro</span>
+                    </label>
+                    <label class="color-option colorado">
+                        <input type="radio" name="cape-color" value="colorado">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Colorado</span>
+                    </label>
+                    <label class="color-option colorado-maduro">
+                        <input type="radio" name="cape-color" value="colorado-maduro">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Colorado<br>Maduro</span>
+                    </label>
+                    <label class="color-option maduro">
+                        <input type="radio" name="cape-color" value="maduro">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Maduro</span>
+                    </label>
+                    <label class="color-option oscuro">
+                        <input type="radio" name="cape-color" value="oscuro">
+                        <div class="tobacco-leaf"></div>
+                        <span class="color-name">Oscuro</span>
+                    </label>
+                </div>
+            </div>
+            <div class="field" style="margin-top: 10px;">
+                <label>Bague du cigare</label>
+                <div class="cigar-band">Coller ou dessiner la bague ici</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="section">
+            <h3>Avant Allumage</h3>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cuir"> <label for="cuir">Cuir</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bois"> <label for="bois">Bois</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="herbe"> <label for="herbe">Herbe</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="foin"> <label for="foin">Foin</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cacao"> <label for="cacao">Cacao</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="cafe"> <label for="cafe">Café</label>
+                </div>
+            </div>
+            <div class="field">
+                <label>Autres arômes</label>
+                <input type="text" style="margin-top: 5px;">
+            </div>
+            <div class="rating-scale">
+                <label>Tirage à cru</label>
+                <div class="scale">
+                    <span style="font-size: 9px;">Difficile</span>
+                    <input type="radio" name="tirage-cru" value="1">1
+                    <input type="radio" name="tirage-cru" value="2">2
+                    <input type="radio" name="tirage-cru" value="3">3
+                    <input type="radio" name="tirage-cru" value="4">4
+                    <input type="radio" name="tirage-cru" value="5">5
+                    <span style="font-size: 9px;">Aisé</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>Cigare Allumé</h3>
+            <div class="rating-scale">
+                <label>Tirage</label>
+                <div class="scale">
+                    <span style="font-size: 9px;">Difficile</span>
+                    <input type="radio" name="tirage" value="1">1
+                    <input type="radio" name="tirage" value="2">2
+                    <input type="radio" name="tirage" value="3">3
+                    <input type="radio" name="tirage" value="4">4
+                    <input type="radio" name="tirage" value="5">5
+                    <span style="font-size: 9px;">Aisé</span>
+                </div>
+            </div>
+            <div class="rating-scale">
+                <label>Combustion</label>
+                <div class="scale">
+                    <span style="font-size: 9px;">Irrégulière</span>
+                    <input type="radio" name="combustion" value="1">1
+                    <input type="radio" name="combustion" value="2">2
+                    <input type="radio" name="combustion" value="3">3
+                    <input type="radio" name="combustion" value="4">4
+                    <input type="radio" name="combustion" value="5">5
+                    <span style="font-size: 9px;">Parfaite</span>
+                </div>
+            </div>
+            <div class="rating-scale">
+                <label>Densité fumée</label>
+                <div class="scale">
+                    <span style="font-size: 9px;">Légère</span>
+                    <input type="radio" name="densite" value="1">1
+                    <input type="radio" name="densite" value="2">2
+                    <input type="radio" name="densite" value="3">3
+                    <input type="radio" name="densite" value="4">4
+                    <input type="radio" name="densite" value="5">5
+                    <span style="font-size: 9px;">Dense</span>
+                </div>
+            </div>
+            <div class="rating-scale">
+                <label>Puissance</label>
+                <div class="scale">
+                    <span style="font-size: 9px;">Douce</span>
+                    <input type="radio" name="puissance" value="1">1
+                    <input type="radio" name="puissance" value="2">2
+                    <input type="radio" name="puissance" value="3">3
+                    <input type="radio" name="puissance" value="4">4
+                    <input type="radio" name="puissance" value="5">5
+                    <span style="font-size: 9px;">Corsée</span>
+                </div>
+            </div>
+            <div class="field">
+                <label>Arômes principaux</label>
+                <input type="text" style="margin-top: 5px;">
+            </div>
+        </div>
+    </div>
+    
+    <div class="notes-section full-width">
+        <h3>Notes & Impressions</h3>
+        <textarea class="notes-area" placeholder="Décrivez vos impressions générales, l'évolution des arômes, la complexité, l'équilibre..."></textarea>
+        
+        <div class="appreciation">
+            <strong>Appréciation globale:</strong>
+            <label>
+                <input type="radio" name="appreciation" value="excellent"> Excellent
+            </label>
+            <label>
+                <input type="radio" name="appreciation" value="tres-bon"> Très bon
+            </label>
+            <label>
+                <input type="radio" name="appreciation" value="bon"> Bon
+            </label>
+            <label>
+                <input type="radio" name="appreciation" value="moyen"> Moyen
+            </label>
+            <label>
+                <input type="radio" name="appreciation" value="decevan"> Décevant
+            </label>
+        </div>
+    </div>
+    
+    <button class="pdf-button" onclick="generatePDF()">📄 GÉNÉRER PDF</button>
+    
+    <div class="footer">
+        Fiche de dégustation - Art de vivre et plaisirs du cigare
+    </div>
+    
     <script>
-        async function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFont("Georgia");
-            doc.setFontSize(16);
-            doc.text("Fiche de Dégustation de Cigare", 10, 10);
-            doc.setFontSize(12);
-            doc.text(`Nom du cigare: ${document.getElementById('cigarName').value}`, 10, 20);
-            doc.text(`Date: ${document.getElementById('date').value}`, 10, 30);
-            doc.text(`Pays/Terroir: ${document.getElementById('country').value}`, 10, 40);
-            doc.text(`Lieu: ${document.getElementById('location').value}`, 10, 50);
-            doc.text(`Module: ${document.getElementById('module').value}`, 10, 60);
-            doc.text(`Prix: ${document.getElementById('price').value}`, 10, 70);
-            doc.text(`Appréciation globale: ${document.getElementById('appreciation').value}`, 10, 80);
-            doc.text(`Notes / Remarques: ${document.getElementById('notes').value}`, 10, 90);
-            doc.text(`Tirage: ${document.getElementById('tire').value}`, 10, 100);
-            doc.text(`Combustion: ${document.getElementById('combustion').value}`, 10, 110);
-            doc.text(`Densité fumée: ${document.getElementById('density').value}`, 10, 120);
-            doc.text(`Puissance: ${document.getElementById('power').value}`, 10, 130);
-            doc.text(`Arômes: ${document.getElementById('aromas').value}`, 10, 140);
-
-            const blob = doc.output('blob');
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'fiche_de_degustation.pdf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+        function generatePDF() {
+            // Configuration pour l'impression
+            const originalTitle = document.title;
+            document.title = 'Fiche_Degustation_Cigare_' + new Date().toLocaleDateString('fr-FR').replace(/\//g, '-');
+            
+            // Lancer l'impression (qui permet de sauvegarder en PDF)
+            window.print();
+            
+            // Restaurer le titre original
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 1000);
         }
+        
+        // Amélioration de l'interactivité
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus sur le premier champ
+            const firstInput = document.querySelector('input[type="text"]');
+            if (firstInput) firstInput.focus();
+            
+            // Effet visuel sur les sélections de couleur
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                radio.addEventListener('change', function() {
+                    colorOptions.forEach(opt => opt.style.borderColor = '#ddd');
+                    if (this.checked) {
+                        option.style.borderColor = '#8b4513';
+                        option.style.borderWidth = '2px';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
