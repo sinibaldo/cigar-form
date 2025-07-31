@@ -81,30 +81,112 @@
 
     <!-- Informations générales -->
     <div class="grid grid-cols-2 gap-4 mb-6">
+
       <div>
-        <label>Nom du cigare</label>
-        <input type="text">
+          <label><strong>Nom du cigare</strong></label>
+          <input type="text"  
+                style="width: 350px; height: 45px; font-size: 18px; padding: 5px; border: none; outline: none;">
       </div>
+
       <div>
-        <label>Date</label>
-        <input type="date">
+          <label><strong>Prix (€)</strong></label>
+          <input type="number" step="0.01" 
+                style="width: 350px; height: 45px; font-size: 18px; padding: 5px; border: none; outline: none;">
       </div>
+
       <div>
-        <label>Pays / Terroir</label>
-        <input type="text">
+          <label><strong>Pays / Terroir</strong></label>
+          <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+              <option value="">Sélectionner...</option>
+              <option value="Cuba">Cuba</option>
+              <option value="République Dominicaine">République Dominicaine</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Honduras">Honduras</option>
+              <option value="Mexique">Mexique</option>
+              <option value="Équateur">Équateur</option>
+              <option value="Brésil">Brésil</option>
+              <option value="Cameroun">Cameroun</option>
+              <option value="Connecticut (USA)">Connecticut (USA)</option>
+              <option value="other">Autre...</option>
+          </select>
+          <input type="text" id="pays_other" placeholder="Préciser le pays/terroir" style="display:none; margin-top:0.5rem; width: 350px; height: 50px; font-size: 18px; padding: 5px;">
       </div>
+      <script>
+      function toggleOtherField(selectId) {
+          var select = document.getElementById(selectId);
+          var otherField = document.getElementById('pays_other');
+          if (select.value === 'other') {
+              otherField.style.display = 'block';
+          } else {
+              otherField.style.display = 'none';
+          }
+      }
+      </script>
+
       <div>
-        <label>Lieu</label>
-        <input type="text">
+          <label><strong>Module</strong></label>
+          <select id="module" onchange="toggleOtherField('module')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+              <option value="">Sélectionner...</option>
+              <option value="Robusto">Robusto</option>
+              <option value="Corona">Corona</option>
+              <option value="Churchill">Churchill</option>
+              <option value="Toro">Toro</option>
+              <option value="Petit Corona">Petit Corona</option>
+              <option value="Panatela">Panatela</option>
+              <option value="Lonsdale">Lonsdale</option>
+              <option value="Double Corona">Double Corona</option>
+              <option value="Belicoso">Belicoso</option>
+              <option value="Torpedo">Torpedo</option>
+              <option value="other">Autre...</option>
+          </select>
+          <input type="text" id="module_other" placeholder="Préciser le module" style="display:none; margin-top:0.5rem; width: 350px; height: 50px; font-size: 18px; padding: 5px;">
       </div>
+      <script>
+      function toggleOtherField(selectId) {
+          var select = document.getElementById(selectId);
+          var otherField = document.getElementById(selectId + '_other');
+          if (select.value === 'other') {
+              otherField.style.display = 'block';
+          } else {
+              otherField.style.display = 'none';
+          }
+      }
+      </script>
+
       <div>
-        <label>Module</label>
-        <input type="text">
+          <label><strong>Lieu</strong></label>
+          <select id="lieu" onchange="toggleOtherField('lieu')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+              <option value="">Sélectionner...</option>
+              <option value="Domicile">Domicile</option>
+              <option value="Bureau">Bureau</option>
+              <option value="Cave à cigares">Cave à cigares</option>
+              <option value="Restaurant">Restaurant</option>
+              <option value="Bar à cigares">Bar à cigares</option>
+              <option value="Terrasse">Terrasse</option>
+              <option value="Jardin">Jardin</option>
+              <option value="Voyage">Voyage</option>
+              <option value="other">Autre...</option>
+          </select>
+          <input type="text" id="lieu_other" placeholder="Préciser le lieu" style="display:none; margin-top:0.5rem; width: 350px; height: 50px; font-size: 18px; padding: 5px;">
       </div>
-      <div>
-        <label>Prix (€)</label>
-        <input type="number" step="0.01">
-      </div>
+      <script>
+      function toggleOtherField(selectId) {
+          var select = document.getElementById(selectId);
+          var otherField = document.getElementById(selectId + '_other');
+          if (select.value === 'other') {
+              otherField.style.display = 'block';
+          } else {
+              otherField.style.display = 'none';
+          }
+      }
+      </script>
+
+    <div>
+        <label><strong>Date</strong></label>
+        <input type="date" 
+              style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
+    </div>
+
     </div>
 
     <!-- Couleurs de cape -->
@@ -350,7 +432,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     <!-- Avant d'allumer -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Avant d'allumer</h2>
-      <label>Arômes à cru</label>
+        <label><strong>Arômes à cru</strong></label>
       <div class="checkbox-group">
         <label><input type="checkbox"> Cuir</label>
         <label><input type="checkbox"> Bois</label>
@@ -359,7 +441,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
         <label><input type="checkbox"> Cacao</label>
         <label><input type="checkbox"> Café</label>
       </div>
-      <label>Tirage à cru</label>
+      <label><strong>Tirage à cru</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="tirage_cru"> Léger</label>
         <label><input type="radio" name="tirage_cru"> Moyen</label>
@@ -370,25 +452,25 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     <!-- Une fois allumé -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Une fois le cigare allumé</h2>
-      <label>Tirage</label>
+      <label><strong>Tirage</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="tirage"> Léger</label>
         <label><input type="radio" name="tirage"> Moyen</label>
         <label><input type="radio" name="tirage"> Fort</label>
       </div>
-      <label>Combustion</label>
+      <label><strong>Combustion</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="combustion"> Léger</label>
         <label><input type="radio" name="combustion"> Moyen</label>
         <label><input type="radio" name="combustion"> Fort</label>
       </div>
-      <label>Densité fumée</label>
+      <label><strong>Densité fumée</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="fume"> Léger</label>
         <label><input type="radio" name="fume"> Moyen</label>
         <label><input type="radio" name="fume"> Fort</label>
       </div>
-      <label>Puissance</label>
+      <label><strong>Puissance</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="puissance"> Léger</label>
         <label><input type="radio" name="puissance"> Moyen</label>
@@ -404,7 +486,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
       <label class="text-green-600"><input type="radio" name="appreciation"> Apprécié</label>
       <label class="text-red-600"><input type="radio" name="appreciation"> Pas apprécié</label>
     </div>
-    <label>Notes / Remarques</label>
+    <label><strong>Notes / Remarques</strong></label>
     <textarea rows="3"></textarea>
   </div>
   </div>
@@ -440,7 +522,14 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
       pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
       // Générer la date du jour
       const today = new Date();
-      const dateStr = today.toLocaleDateString('fr-FR').replace(/\//g, '-');
+
+      // Extraire jour, mois, année
+      const day = String(today.getDate()).padStart(2, '0');       // 01 -> 31
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // 01 -> 12
+      const year = today.getFullYear();
+
+      // Format final : DD-MM-YYYY
+      const dateStr = `${day}-${month}-${year}`;
 
       // Sauvegarder avec la date dans le nom du fichier
       pdf.save(`fiche_cigare_${dateStr}.pdf`);
