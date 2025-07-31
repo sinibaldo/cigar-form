@@ -419,10 +419,6 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     window.addEventListener('touchmove', function(event) {
       event.preventDefault();
     }, { passive: false });
-    // JavaScript pour désactiver le zoom
-    document.addEventListener('gesturestart', function(e) {
-      e.preventDefault();
-    });
 
     async function exportPDF() {
       const { jsPDF } = window.jspdf;
