@@ -581,25 +581,25 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     const fiche = document.getElementById('fiche');
     const canvas = await html2canvas(fiche, { scale: 2 });
     const imgData = canvas.toDataURL('image/png');
-
     const pdf = new jsPDF('p', 'pt', 'a4');
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-
     const imgWidth = canvas.width;
     const imgHeight = canvas.height;
     const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-
     const displayWidth = imgWidth * ratio;
     const displayHeight = imgHeight * ratio;
     const marginX = (pageWidth - displayWidth) / 2;
 
     pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
     pdf.save(`fiche_cigare_${dateStr}.pdf`);
-	
-	// Rafraîchir la page après l'exportation
-	window.location.reload();
+
+    // Utiliser un délai pour s'assurer que le fichier est téléchargé avant de rafraîchir
+    setTimeout(function() {
+        window.location.reload();
+    }, 1000); // Délai de 1 seconde
   }
 </script>
+
 </body>
 </html>
