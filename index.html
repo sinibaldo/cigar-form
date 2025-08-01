@@ -203,7 +203,13 @@ select {
 </div>
 
     </div>
-
+    <script>
+        document.addEventListener('touchmove', function(event) {
+            if (window.scrollY <= 0 && event.target === document.body) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+    </script>
     <!-- Couleurs de cape -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Couleur de la cape</h2>
@@ -537,19 +543,6 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
   </div>
 
   <script>
-    // Prévenir le rafraîchissement lors du glissement
-    window.addEventListener('touchmove', function(event) {
-      event.preventDefault();
-    }, { passive: false });
-    async  = window.jspdf;
-      const fiche = document.getElementById('fiche');
-      const canvas = await html2canvas(fiche, { scale: 2 });
-      const imgData = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF('p', 'pt', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
       // Calcul de l'échelle pour tenir sur une seule page
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
@@ -603,6 +596,9 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 
     pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
     pdf.save(`fiche_cigare_${dateStr}.pdf`);
+	
+	// Rafraîchir la page après l'exportation
+	window.location.reload();
   }
 </script>
 </body>
