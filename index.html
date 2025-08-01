@@ -81,7 +81,7 @@ select {
     -webkit-appearance: none; /* Supprimer le style par défaut sur iOS */
     -moz-appearance: none; /* Supprimer le style par défaut sur Firefox */
     appearance: none; /* Supprimer le style par défaut sur d'autres navigateurs */
-}
+}     
   </style>
 </head>
 <body class="p-6">
@@ -106,7 +106,7 @@ select {
 
       <div>
           <label><strong>Pays / Terroir</strong></label>
-          <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+    	  <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
               <option value="Cuba">Cuba</option>
               <option value="République Dominicaine">République Dominicaine</option>
@@ -135,7 +135,7 @@ select {
 
       <div>
           <label><strong>Module</strong></label>
-          <select id="module" onchange="toggleOtherField('module')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+              <select id="module" onchange="toggleOtherField('module')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
               <option value="Robusto">Robusto</option>
               <option value="Corona">Corona</option>
@@ -165,7 +165,7 @@ select {
 
       <div>
           <label><strong>Lieu</strong></label>
-          <select id="lieu" onchange="toggleOtherField('lieu')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px;">
+    <select id="lieu" onchange="toggleOtherField('lieu')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
               <option value="Domicile">Domicile</option>
               <option value="Bureau">Bureau</option>
