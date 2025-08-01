@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Fiche de dégustation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fiche Cigare">
+
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
+    /* Empêche le rafraîchissement par glissement (pull-to-refresh) */
+	  html, body {
+	  overscroll-behavior-y: contain;
+	}
     body {
       font-family: 'Inter', sans-serif;
       background: #f8f8f8;
@@ -93,21 +102,42 @@ select {
     <!-- Informations générales -->
     <div class="grid grid-cols-2 gap-4 mb-6">
 
-      <div>
-          <label><strong>Nom du cigare</strong></label>
-          <input type="text"  
-                style="width: 350px; height: 35px; font-size: 18px; padding: 5px; border: none; outline: none;">
-      </div>
+<style>
+  /* Variable pour gérer l'espacement entre champs */
+  :root {
+    --field-spacing: -14px; /* Modifie cette valeur pour ajuster */
+  }
 
-      <div>
-          <label><strong>Prix (€)</strong></label>
-          <input type="number" step="0.01" 
-                style="width: 350px; height: 35px; font-size: 18px; padding: 5px; border: none; outline: none;">
-      </div>
+  .field {
+    display: flex;
+    flex-direction: column; /* Label au-dessus de l'input */
+    gap: var(--field-spacing); /* Espacement entre label et input */
+    margin-bottom: var(--field-spacing); /* Espacement entre champs */
+  }
+
+  .field input {
+    width: 350px;
+    height: 35px;
+    font-size: 18px;
+    padding: 5px;
+    border: none;
+    outline: none;
+  }
+</style>
+
+<div class="field">
+  <label><strong>Nom du cigare</strong></label>
+  <input type="text">
+</div>
+
+<div class="field">
+  <label><strong>Prix (€)</strong></label>
+  <input type="number" step="0.01">
+</div>
 
       <div>
           <label><strong>Pays / Terroir</strong></label>
-    	  <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; margin-top: 10px; border: none; outline: none;">
+    	  <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
               <option value="Cuba">Cuba</option>
               <option value="République Dominicaine">République Dominicaine</option>
@@ -210,13 +240,7 @@ select {
 </div>
 
     </div>
-    <script>
-        document.addEventListener('touchmove', function(event) {
-            if (window.scrollY <= 0 && event.target === document.body) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-    </script>
+
     <!-- Couleurs de cape -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Couleur de la cape</h2>
