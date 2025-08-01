@@ -29,6 +29,7 @@
       display: block;
       margin-bottom: 0.3rem;
     }
+
     input[type="text"], input[type="date"], input[type="number"], textarea {
       background: #fff;
       border: 1px solid #ddd;
@@ -117,6 +118,7 @@ select {
               <option value="Brésil">Brésil</option>
               <option value="Cameroun">Cameroun</option>
               <option value="Connecticut (USA)">Connecticut (USA)</option>
+              <option value="Italie">Italie</option>
               <option value="other">Autre...</option>
           </select>
           <input type="text" id="pays_other" placeholder="Préciser le pays/terroir" style="display:none; margin-top:0.5rem; width: 350px; height: 50px; font-size: 18px; padding: 5px;">
@@ -131,6 +133,8 @@ select {
               otherField.style.display = 'none';
           }
       }
+
+}
       </script>
 
       <div>
@@ -191,11 +195,12 @@ select {
       }
       </script>
 
-    <div>
-        <label><strong>Date</strong></label>
-        <input type="date" 
-              style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
-    </div>
+<div>
+    <label><strong>Date</strong></label>
+    <input type="date" 
+           id="dateInput"
+           style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
+</div>
 
     </div>
 
@@ -442,15 +447,23 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     <!-- Avant d'allumer -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Avant d'allumer</h2>
-        <label><strong>Arômes à cru</strong></label>
-      <div class="checkbox-group">
-        <label><input type="checkbox"> Cuir</label>
-        <label><input type="checkbox"> Bois</label>
-        <label><input type="checkbox"> Herbe</label>
-        <label><input type="checkbox"> Foin</label>
-        <label><input type="checkbox"> Cacao</label>
-        <label><input type="checkbox"> Café</label>
-      </div>
+ <label for="aromes_cru"><strong>Arômes à cru</strong></label>
+<select id="aromes_cru" onchange="toggleOtherField('aromes_cru')" class="mb-4" 
+        style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
+    <option value="">Sélectionner un arôme...</option>
+    <option value="Cuir">Cuir</option>
+    <option value="Bois">Bois</option>
+    <option value="Herbe">Herbe</option>
+    <option value="Foin">Foin</option>
+    <option value="Cacao">Cacao</option>
+    <option value="Café">Café</option>
+    <option value="Épices">Épices</option>
+    <option value="Miel">Miel</option>
+    <option value="Terre">Terre</option>
+    <option value="Végétal">Végétal</option>
+    <option value="other">Autre...</option>
+</select>
+<input type="text" id="aromes_cru_other" placeholder="Préciser l'arôme" style="display:none;" class="mb-4">
       <label><strong>Tirage à cru</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="tirage_cru"> Léger</label>
@@ -462,6 +475,24 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     <!-- Une fois allumé -->
     <div class="mb-6">
       <h2 class="text-xl mb-2">Une fois le cigare allumé</h2>
+<label for="aromes_degustation"><strong>Arômes / Goûts</strong></label>
+<select id="aromes_degustation" onchange="toggleOtherField('aromes_degustation')" class="mb-4" 
+        style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
+    <option value="">Sélectionner un arôme...</option>
+    <option value="Terreux">Terreux</option>
+    <option value="Boisé">Boisé</option>
+    <option value="Épicé">Épicé</option>
+    <option value="Café">Café</option>
+    <option value="Cacao / Chocolat">Cacao / Chocolat</option>
+    <option value="Fruité">Fruité</option>
+    <option value="Floral">Floral</option>
+    <option value="Miel / Sucré">Miel / Sucré</option>
+    <option value="Noix / Grillé">Noix / Grillé</option>
+    <option value="Cuir">Cuir</option>
+    <option value="Végétal / Herbacé">Végétal / Herbacé</option>
+    <option value="other">Autre...</option>
+</select>
+      <input type="text" id="aromes_degustation_other" placeholder="Préciser l'arôme/goût" style="display:none;" class="mb-4">
       <label><strong>Tirage</strong></label>
       <div class="checkbox-group">
         <label><input type="radio" name="tirage"> Léger</label>
@@ -510,8 +541,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     window.addEventListener('touchmove', function(event) {
       event.preventDefault();
     }, { passive: false });
-    async function exportPDF() {
-      const { jsPDF } = window.jspdf;
+    async  = window.jspdf;
       const fiche = document.getElementById('fiche');
       const canvas = await html2canvas(fiche, { scale: 2 });
       const imgData = canvas.toDataURL('image/png');
@@ -530,21 +560,50 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
       const marginX = (pageWidth - displayWidth) / 2;
 
       pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
-      // Générer la date du jour
-      const today = new Date();
+<script>
+  -${mm}-${yyyy}`;  // Format DD-MM-YYYY
+      }
 
-      // Extraire jour, mois, année
-      const day = String(today.getDate()).padStart(2, '0');       // 01 -> 31
-      const month = String(today.getMonth() + 1).padStart(2, '0'); // 01 -> 12
-      const year = today.getFullYear();
-
-      // Format final : DD-MM-YYYY
-      const dateStr = `${day}-${month}-${year}`;
-
-      // Sauvegarder avec la date dans le nom du fichier
+      // Sauvegarder le fichier PDF avec la date formatée
       pdf.save(`fiche_cigare_${dateStr}.pdf`);
+  }
+</script>
+ 
     }
   </script>
 
+
+<script>
+  async function exportPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Récupérer la date et formater en DD-MM-YYYY
+    const dateInput = document.getElementById('dateInput')?.value;
+    let dateStr = "sans_date";
+    if (dateInput) {
+        const [yyyy, mm, dd] = dateInput.split("-");
+        dateStr = `${dd}-${mm}-${yyyy}`;
+    }
+
+    const fiche = document.getElementById('fiche');
+    const canvas = await html2canvas(fiche, { scale: 2 });
+    const imgData = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+
+    const displayWidth = imgWidth * ratio;
+    const displayHeight = imgHeight * ratio;
+    const marginX = (pageWidth - displayWidth) / 2;
+
+    pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
+    pdf.save(`fiche_cigare_${dateStr}.pdf`);
+  }
+</script>
 </body>
 </html>
