@@ -567,38 +567,45 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 
 
 <script>
-  async function exportPDF() {
-    const { jsPDF } = window.jspdf;
+    document.addEventListener('touchmove', function(event) {
+        // Empêcher le comportement par défaut uniquement si le défilement est en haut de la page
+        if (window.scrollY <= 0) {
+            event.preventDefault();
+        }
+    }, { passive: false });
 
-    // Récupérer la date et formater en DD-MM-YYYY
-    const dateInput = document.getElementById('dateInput')?.value;
-    let dateStr = "sans_date";
-    if (dateInput) {
-        const [yyyy, mm, dd] = dateInput.split("-");
-        dateStr = `${dd}-${mm}-${yyyy}`;
+    async function exportPDF() {
+        const { jsPDF } = window.jspdf;
+
+        // Récupérer la date et formater en DD-MM-YYYY
+        const dateInput = document.getElementById('dateInput')?.value;
+        let dateStr = "sans_date";
+        if (dateInput) {
+            const [yyyy, mm, dd] = dateInput.split("-");
+            dateStr = `${dd}-${mm}-${yyyy}`;
+        }
+
+        const fiche = document.getElementById('fiche');
+        const canvas = await html2canvas(fiche, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'pt', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+        const displayWidth = imgWidth * ratio;
+        const displayHeight = imgHeight * ratio;
+        const marginX = (pageWidth - displayWidth) / 2;
+
+        pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
+        pdf.save(`fiche_cigare_${dateStr}.pdf`);
+
+        // Utiliser un délai pour s'assurer que le fichier est téléchargé avant de rafraîchir
+        setTimeout(function() {
+            window.location.reload();
+        }, 1000); // Délai de 1 seconde
     }
-
-    const fiche = document.getElementById('fiche');
-    const canvas = await html2canvas(fiche, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'pt', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = canvas.width;
-    const imgHeight = canvas.height;
-    const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-    const displayWidth = imgWidth * ratio;
-    const displayHeight = imgHeight * ratio;
-    const marginX = (pageWidth - displayWidth) / 2;
-
-    pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
-    pdf.save(`fiche_cigare_${dateStr}.pdf`);
-
-    // Utiliser un délai pour s'assurer que le fichier est téléchargé avant de rafraîchir
-    setTimeout(function() {
-        window.location.reload();
-    }, 1000); // Délai de 1 seconde
-  }
 </script>
 
 </body>
