@@ -88,7 +88,7 @@ select {
 <body class="p-6">
 
   <div class="max-w-3xl mx-auto lux-card" id="fiche">
-    <h1 class="text-center text-3xl mb-8">Fiche de dégustation de cigare</h1>
+	<h1 class="text-center text-3xl" style="margin-bottom: 60px;">Fiche de dégustation de cigare</h1>
 
     <!-- Informations générales -->
     <div class="grid grid-cols-2 gap-4 mb-6">
@@ -107,7 +107,7 @@ select {
 
       <div>
           <label><strong>Pays / Terroir</strong></label>
-    	  <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
+    	  <select id="pays" onchange="toggleOtherField('pays')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; margin-top: 10px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
               <option value="Cuba">Cuba</option>
               <option value="République Dominicaine">République Dominicaine</option>
@@ -194,6 +194,13 @@ select {
           }
       }
       </script>
+	<script>
+	  // Met automatiquement la date du jour dans le champ
+	  document.addEventListener("DOMContentLoaded", function() {
+		  const today = new Date().toISOString().split('T')[0];
+		  document.getElementById('dateInput').value = today;
+	  });
+	</script>
 
 <div>
     <label><strong>Date</strong></label>
@@ -567,13 +574,6 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 
 
 <script>
-    document.addEventListener('touchmove', function(event) {
-        // Empêcher le comportement par défaut uniquement si le défilement est en haut de la page
-        if (window.scrollY <= 0) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-
     async function exportPDF() {
         const { jsPDF } = window.jspdf;
 
