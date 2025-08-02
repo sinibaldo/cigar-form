@@ -628,6 +628,25 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
         }, 1000); // Délai de 1 seconde
     }
 </script>
+<div class="text-center mt-6">
+    <button id="fullscreenBtn">Activer le plein écran</button>
+</div>
 
+<script>
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+    fullscreenBtn.addEventListener('click', () => {
+        const fiche = document.getElementById('fiche');
+        if (fiche.requestFullscreen) {
+            fiche.requestFullscreen();
+        } else if (fiche.mozRequestFullScreen) { // Firefox
+            fiche.mozRequestFullScreen();
+        } else if (fiche.webkitRequestFullscreen) { // Chrome, Safari et Opera
+            fiche.webkitRequestFullscreen();
+        } else if (fiche.msRequestFullscreen) { // IE/Edge
+            fiche.msRequestFullscreen();
+        }
+    });
+</script>
 </body>
 </html>
