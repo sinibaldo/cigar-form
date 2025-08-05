@@ -223,20 +223,26 @@ select {
           }
       }
       </script>
-	<script>
-	  // Met automatiquement la date du jour dans le champ
-	  document.addEventListener("DOMContentLoaded", function() {
-		  const today = new Date().toISOString().split('T')[0];
-		  document.getElementById('dateInput').value = today;
-	  });
-	</script>
 
 <div>
     <label><strong>Date</strong></label>
-    <input type="date" 
+    <input type="date"
            id="dateInput"
            style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Crée une date et la convertit au format ISO (AAAA-MM-JJTHH:mm:ss.sssZ)
+    const isoDate = new Date().toISOString();
+    
+    // On ne garde que la partie date (AAAA-MM-JJ), qui est le format requis
+    const todayForInput = isoDate.split('T')[0];
+    
+    // On assigne la valeur correcte à l'input de type "date"
+    document.getElementById('dateInput').value = todayForInput;
+  });
+</script>
 
     </div>
     <script>
