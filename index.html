@@ -8,6 +8,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
+	  .no-scroll {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+	}
     body {
       font-family: 'Inter', sans-serif;
       background: #f8f8f8;
@@ -626,11 +634,13 @@ async function exportPDF() {
     }, 1000);
 }
 </script>
-
 <script>
 document.addEventListener('touchmove', function(event) {
-    if (window.scrollY <= 0 && event.target === document.body) {
+    if (window.scrollY <= 0) {
+        document.body.classList.add('no-scroll');
         event.preventDefault();
+    } else {
+        document.body.classList.remove('no-scroll');
     }
 }, { passive: false });
 </script>
