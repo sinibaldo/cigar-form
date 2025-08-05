@@ -108,7 +108,7 @@ select {
 
   .field input {
     width: 350px;
-    height: 35px;
+    height: 40px;
     font-size: 18px;
     padding: 5px;
     border: none;
@@ -500,9 +500,9 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 <input type="text" id="aromes_cru_other" placeholder="Préciser l'arôme" style="display:none;" class="mb-4">
       <label><strong>Tirage à cru</strong></label>
       <div class="checkbox-group">
-        <label><input type="radio" name="tirage_cru"> Léger</label>
-        <label><input type="radio" name="tirage_cru"> Moyen</label>
-        <label><input type="radio" name="tirage_cru"> Fort</label>
+        <label><input type="radio" name="tirage_cru"> Souple</label>
+        <label><input type="radio" name="tirage_cru"> Modéré</label>
+        <label><input type="radio" name="tirage_cru"> Ferme</label>
       </div>
     </div>
 
@@ -529,27 +529,27 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
       <input type="text" id="aromes_degustation_other" placeholder="Préciser l'arôme/goût" style="display:none;" class="mb-4">
       <label><strong>Tirage</strong></label>
       <div class="checkbox-group">
-        <label><input type="radio" name="tirage"> Léger</label>
-        <label><input type="radio" name="tirage"> Moyen</label>
-        <label><input type="radio" name="tirage"> Fort</label>
+        <label><input type="radio" name="tirage"> Facile</label>
+        <label><input type="radio" name="tirage"> Équilibré</label>
+        <label><input type="radio" name="tirage"> Résistant</label>
       </div>
       <label><strong>Combustion</strong></label>
       <div class="checkbox-group">
-        <label><input type="radio" name="combustion"> Léger</label>
-        <label><input type="radio" name="combustion"> Moyen</label>
-        <label><input type="radio" name="combustion"> Fort</label>
+        <label><input type="radio" name="combustion"> Rapide</label>
+        <label><input type="radio" name="combustion"> Régulière</label>
+        <label><input type="radio" name="combustion"> Lente</label>
       </div>
       <label><strong>Densité fumée</strong></label>
       <div class="checkbox-group">
-        <label><input type="radio" name="fume"> Léger</label>
-        <label><input type="radio" name="fume"> Moyen</label>
-        <label><input type="radio" name="fume"> Fort</label>
+        <label><input type="radio" name="fume"> Légère</label>
+        <label><input type="radio" name="fume"> Soutenue</label>
+        <label><input type="radio" name="fume"> Épaisse</label>
       </div>
       <label><strong>Puissance</strong></label>
       <div class="checkbox-group">
-        <label><input type="radio" name="puissance"> Léger</label>
-        <label><input type="radio" name="puissance"> Moyen</label>
-        <label><input type="radio" name="puissance"> Fort</label>
+        <label><input type="radio" name="puissance"> Douce</label>
+        <label><input type="radio" name="puissance"> Prononcée</label>
+        <label><input type="radio" name="puissance"> Intense</label>
       </div>
     </div>
 
@@ -570,7 +570,7 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
     <button onclick="exportPDF()">Générer la fiche</button>
   </div>
 
-  <script>
+ <script>
       // Calcul de l'échelle pour tenir sur une seule page
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
@@ -591,42 +591,48 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 </script>
  
     
-  </script>
-
-<script>
-    async function exportPDF() {
-        const { jsPDF } = window.jspdf;
-
-        // Récupérer la date et formater en DD-MM-YYYY
-        const dateInput = document.getElementById('dateInput')?.value;
-        let dateStr = "sans_date";
-        if (dateInput) {
-            const [yyyy, mm, dd] = dateInput.split("-");
-            dateStr = `${dd}-${mm}-${yyyy}`;
-        }
-
-        const fiche = document.getElementById('fiche');
-        const canvas = await html2canvas(fiche, { scale: 2 });
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'pt', 'a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-        const displayWidth = imgWidth * ratio;
-        const displayHeight = imgHeight * ratio;
-        const marginX = (pageWidth - displayWidth) / 2;
-
-        pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
-        pdf.save(`fiche_cigare_${dateStr}.pdf`);
-
-        // Utiliser un délai pour s'assurer que le fichier est téléchargé avant de rafraîchir
-        setTimeout(function() {
-            window.location.reload();
-        }, 1000); // Délai de 1 seconde
-    }
 </script>
 
+<script>
+async function exportPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Récupérer la date et formater en DD-MM-YYYY
+    const dateInput = document.getElementById('dateInput')?.value;
+    let dateStr = "sans_date";
+    if (dateInput) {
+        const [yyyy, mm, dd] = dateInput.split("-");
+        dateStr = `${dd}-${mm}-${yyyy}`;
+    }
+
+    const fiche = document.getElementById('fiche');
+    const canvas = await html2canvas(fiche, { scale: 2 });
+    const imgData = canvas.toDataURL('image/jpeg', 0.5); // Réduire la qualité ici
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+    const displayWidth = imgWidth * ratio;
+    const displayHeight = imgHeight * ratio;
+    const marginX = (pageWidth - displayWidth) / 2;
+
+    pdf.addImage(imgData, 'JPEG', marginX, 0, displayWidth, displayHeight); // Changer PNG en JPEG
+    pdf.save(`fiche_cigare_${dateStr}.pdf`);
+
+    setTimeout(function() {
+        window.location.reload();
+    }, 1000);
+}
+</script>
+
+<script>
+document.addEventListener('touchmove', function(event) {
+    if (window.scrollY <= 0 && event.target === document.body) {
+        event.preventDefault();
+    }
+}, { passive: false });
+</script>
 </body>
 </html>
