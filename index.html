@@ -232,17 +232,22 @@ select {
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Crée une date et la convertit au format ISO (AAAA-MM-JJTHH:mm:ss.sssZ)
-    const isoDate = new Date().toISOString();
-    
-    // On ne garde que la partie date (AAAA-MM-JJ), qui est le format requis
-    const todayForInput = isoDate.split('T')[0];
-    
-    // On assigne la valeur correcte à l'input de type "date"
-    document.getElementById('dateInput').value = todayForInput;
-  });
+document.addEventListener("DOMContentLoaded", function() {
+    const now = new Date();
+
+    // Pour input (obligatoire YYYY-MM-DD)
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+
+    // Remplit l'input avec le format HTML requis
+    document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
+
+    // Stocke le format DD-MM-YYYY pour usage PDF
+    document.getElementById('dateInput').setAttribute('data-display', `${dd}-${mm}-${yyyy}`);
+});
 </script>
+
 
     </div>
     <script>
@@ -596,7 +601,6 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 
       pdf.addImage(imgData, 'PNG', marginX, 0, displayWidth, displayHeight);
 <script>
-  -${mm}-${yyyy}`;  // Format DD-MM-YYYY
       }
 
       // Sauvegarder le fichier PDF avec la date formatée
@@ -610,18 +614,24 @@ GfxvcLbG4m0XVr9IpGVmjtA+Oeow3I5NP1nx1bui2tokl44YN5FpGAgxx87n61j6v8StV07WZ2lmWKUb
 <script>
 async function exportPDF() {
     const { jsPDF } = window.jspdf;
+    const dateInput = document.getElementById('dateInput');
 
-    // Récupérer la date et formater en DD-MM-YYYY
-    const dateInput = document.getElementById('dateInput')?.value;
+    // Convertir la date YYYY-MM-DD → DD-MM-YYYY
     let dateStr = "sans_date";
-    if (dateInput) {
-        const [yyyy, mm, dd] = dateInput.split("-");
+    if (dateInput && dateInput.value) {
+        const [yyyy, mm, dd] = dateInput.value.split("-");
         dateStr = `${dd}-${mm}-${yyyy}`;
     }
 
+    // 🔹 Avant capture : afficher la date au format DD-MM-YYYY pour le PDF
+    const originalType = dateInput.type;
+    dateInput.type = "text";
+    dateInput.value = dateStr;
+
+    // Génération du PDF
     const fiche = document.getElementById('fiche');
     const canvas = await html2canvas(fiche, { scale: 2 });
-    const imgData = canvas.toDataURL('image/jpeg', 0.5); // Réduire la qualité ici
+    const imgData = canvas.toDataURL('image/jpeg', 0.5);
     const pdf = new jsPDF('p', 'pt', 'a4');
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
@@ -632,13 +642,20 @@ async function exportPDF() {
     const displayHeight = imgHeight * ratio;
     const marginX = (pageWidth - displayWidth) / 2;
 
-    pdf.addImage(imgData, 'JPEG', marginX, 0, displayWidth, displayHeight); // Changer PNG en JPEG
+    pdf.addImage(imgData, 'JPEG', marginX, 0, displayWidth, displayHeight);
     pdf.save(`fiche_cigare_${dateStr}.pdf`);
+
+    // 🔹 Après capture : revenir à l’input type=date
+    dateInput.type = originalType;
+    const [dd, mm, yyyy] = dateStr.split("-");
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
 
     setTimeout(function() {
         window.location.reload();
     }, 1000);
 }
+
+
 </script>
 <script>
 document.addEventListener('touchmove', function(event) {
