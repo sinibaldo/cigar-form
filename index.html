@@ -657,15 +657,59 @@ async function exportPDF() {
 
 
 </script>
+<style>
+/* Classe qui bloque tout défilement */
+.no-scroll {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    touch-action: none !important; /* Bloque gestes tactiles */
+    overscroll-behavior: none !important; /* Bloque "rebond" iOS */
+}
+</style>
+
 <script>
-document.addEventListener('touchmove', function(event) {
-    if (window.scrollY <= 0) {
-        document.body.classList.add('no-scroll');
-        event.preventDefault();
-    } else {
-        document.body.classList.remove('no-scroll');
+(function() {
+    const body = document.body;
+    let scrollPosition = 0;
+
+    function disableScroll() {
+        // Sauvegarde la position actuelle pour éviter les sauts
+        scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        body.style.top = `-${scrollPosition}px`;
+        body.classList.add('no-scroll');
     }
-}, { passive: false });
+
+    function enableScroll() {
+        body.classList.remove('no-scroll');
+        body.style.top = '';
+        window.scrollTo(0, scrollPosition); // Restaure la position
+    }
+
+    // Empêche le défilement tactile
+    document.addEventListener('touchmove', function(event) {
+        if (window.scrollY <= 0) {
+            disableScroll();
+            event.preventDefault();
+        } else {
+            enableScroll();
+        }
+    }, { passive: false });
+
+    // Empêche que le focus sur un input force le scroll
+    document.querySelectorAll('input, textarea, select').forEach(el => {
+        el.addEventListener('focus', () => {
+            if (body.classList.contains('no-scroll')) {
+                setTimeout(() => {
+                    window.scrollTo(0, 0); // Corrige iOS/Android
+                }, 0);
+            }
+        });
+    });
+
+})();
 </script>
+
 </body>
 </html>
