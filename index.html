@@ -2,33 +2,19 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Fiche de dégustation</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-	 input,
-	textarea,
-	select {
-		font-size: 16px; /* Minimum pour éviter le zoom iOS */
-	}
-	/* Empêche tout défilement quand no-scroll est actif */
-	.no-scroll {
-		overflow: hidden !important;
-		position: fixed !important;
-		width: 100% !important;
-		height: 100% !important;
-		top: 0 !important;
-		left: 0 !important;
-		touch-action: none !important;          /* Bloque gestes tactiles */
-		overscroll-behavior: none !important;   /* Bloque le rebond iOS */
-	}
-	
-	/* Empêche le zoom automatique sur iOS */
-	input, textarea, select {
-		font-size: 16px; /* Minimum 16px pour éviter le zoom */
+	  .no-scroll {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
 	}
     body {
       font-family: 'Inter', sans-serif;
@@ -671,59 +657,15 @@ async function exportPDF() {
 
 
 </script>
-<style>
-/* Classe qui bloque tout défilement */
-.no-scroll {
-    overflow: hidden !important;
-    position: fixed !important;
-    width: 100% !important;
-    height: 100% !important;
-    touch-action: none !important; /* Bloque gestes tactiles */
-    overscroll-behavior: none !important; /* Bloque "rebond" iOS */
-}
-</style>
-
 <script>
-(function() {
-    const body = document.body;
-    let scrollPosition = 0;
-
-    function disableScroll() {
-        // Sauvegarde la position actuelle pour éviter les sauts
-        scrollPosition = window.scrollY || document.documentElement.scrollTop;
-        body.style.top = `-${scrollPosition}px`;
-        body.classList.add('no-scroll');
+document.addEventListener('touchmove', function(event) {
+    if (window.scrollY <= 0) {
+        document.body.classList.add('no-scroll');
+        event.preventDefault();
+    } else {
+        document.body.classList.remove('no-scroll');
     }
-
-    function enableScroll() {
-        body.classList.remove('no-scroll');
-        body.style.top = '';
-        window.scrollTo(0, scrollPosition); // Restaure la position
-    }
-
-    // Empêche le défilement tactile
-    document.addEventListener('touchmove', function(event) {
-        if (window.scrollY <= 0) {
-            disableScroll();
-            event.preventDefault();
-        } else {
-            enableScroll();
-        }
-    }, { passive: false });
-
-    // Empêche que le focus sur un input force le scroll
-    document.querySelectorAll('input, textarea, select').forEach(el => {
-        el.addEventListener('focus', () => {
-            if (body.classList.contains('no-scroll')) {
-                setTimeout(() => {
-                    window.scrollTo(0, 0); // Corrige iOS/Android
-                }, 0);
-            }
-        });
-    });
-
-})();
+}, { passive: false });
 </script>
-
 </body>
 </html>
