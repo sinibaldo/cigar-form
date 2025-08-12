@@ -170,16 +170,51 @@ select {
           <label><strong>Module</strong></label>
               <select id="module" onchange="toggleOtherField('module')" style="width: 350px; height: 50px; font-size: 18px; padding: 5px; border: none; outline: none;">
               <option value="">Sélectionner...</option>
-              <option value="Robusto">Robusto</option>
-              <option value="Corona">Corona</option>
-              <option value="Churchill">Churchill</option>
-              <option value="Toro">Toro</option>
-              <option value="Petit Corona">Petit Corona</option>
-              <option value="Panatela">Panatela</option>
-              <option value="Lonsdale">Lonsdale</option>
-              <option value="Double Corona">Double Corona</option>
-              <option value="Belicoso">Belicoso</option>
-              <option value="Torpedo">Torpedo</option>
+<optgroup label="Petits formats">
+    <option value="Petit Corona">Petit Corona</option>
+    <option value="Petit Robusto">Petit Robusto</option>
+    <option value="Petit Edmundo">Petit Edmundo</option>
+    <option value="Petit Churchill">Petit Churchill</option>
+    <option value="Petit Lancero">Petit Lancero</option>
+</optgroup>
+
+<optgroup label="Formats standards">
+    <option value="Corona">Corona</option>
+    <option value="Corona Gorda">Corona Gorda</option>
+    <option value="Robusto">Robusto</option>
+    <option value="Grand Robusto">Grand Robusto</option>
+    <option value="Toro">Toro</option>
+    <option value="Churchill">Churchill</option>
+</optgroup>
+
+<optgroup label="Doubles formats">
+    <option value="Double Corona">Double Corona</option>
+    <option value="Double Robusto">Double Robusto</option>
+    <option value="Double Toro">Double Toro</option>
+    <option value="Double Edmundo">Double Edmundo</option>
+</optgroup>
+
+<optgroup label="Formats fins">
+    <option value="Panatela">Panatela</option>
+    <option value="Lonsdale">Lonsdale</option>
+    <option value="Lancero">Lancero</option>
+</optgroup>
+
+<optgroup label="Formats spéciaux">
+    <option value="Perfecto">Perfecto</option>
+    <option value="Pyramid">Pyramid</option>
+    <option value="Torpedo">Torpedo</option>
+    <option value="Belicoso">Belicoso</option>
+    <option value="Salomon">Salomon</option>
+    <option value="Diadema">Diadema</option>
+    <option value="Culebra">Culebra</option>
+    <option value="Gordo">Gordo</option>
+</optgroup>
+
+<optgroup label="Série Edmundo">
+    <option value="Edmundo">Edmundo</option>
+</optgroup>
+
               <option value="other">Autre...</option>
           </select>
           <input type="text" id="module_other" placeholder="Préciser le module" style="display:none; margin-top:0.5rem; width: 350px; height: 50px; font-size: 18px; padding: 5px;">
